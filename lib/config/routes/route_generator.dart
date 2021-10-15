@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'core/errors/error_route.dart';
+import '../../core/errors/error_route.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

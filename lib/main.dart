@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'route_generator.dart';
+import 'config/routes/route_generator.dart';
 
 void main() {
   runApp(Manga());
