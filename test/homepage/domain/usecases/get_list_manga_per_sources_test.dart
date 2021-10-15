@@ -1,43 +1,44 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/core/usecases.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaLink.dart';
 import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
-import 'package:mobile/features/homepage/domain/usecases/get_random_scan.dart';
+import 'package:mobile/features/homepage/domain/usecases/get_list_manga_per_sources.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'get_random_scan_test.mocks.dart';
+import 'get_list_manga_per_sources_test.mocks.dart';
 
 class TestHomePageRepository extends Mock implements HomePageRepository {}
 
 @GenerateMocks([TestHomePageRepository])
 void main() {
-  late GetRandomScan usecase;
+  late GetListMangaPerSource usecase;
   late MockTestHomePageRepository testDashboardRepository;
 
   setUp(() {
     testDashboardRepository = MockTestHomePageRepository();
-    usecase = GetRandomScan(testDashboardRepository);
+    usecase = GetListMangaPerSource(testDashboardRepository);
   });
 
-  final mangaInfo = MangaInfo(
-      cover: "fakeUrl.com",
-      linkMangaName: MangaLink(url: "mangaLink", name: "Manga Name"),
-      linkChapter: MangaLink(url: "ChapterLink", name: "Chapter 42"));
+  final listMangaInfo = [
+    MangaInfo(
+        cover: "fakeUrl.com",
+        linkMangaName: MangaLink(url: "mangaLink", name: "Manga Name"),
+        linkChapter: MangaLink(url: "ChapterLink", name: "Chapter 42"))
+  ];
 
-  test('should get MangaInfo from the repository', () async {
-    // Mock the repository to send a MangaInfo whatever the parameters
-    when(testDashboardRepository.getRandomScan())
-        .thenAnswer((_) async => Right(mangaInfo));
+  test('should get MangaInfo List from the repository', () async {
+    // Mock the repository to send a List<MangaInfo> with the source as parameter
+    when(testDashboardRepository.getListMangaPerSource(any))
+        .thenAnswer((_) async => Right(listMangaInfo));
 
     //Await the result of the usecase
-    final result = await usecase(NoParams());
+    final result = await usecase(Params(sourceName: 'mangaRock'));
 
-    expect(result, Right(mangaInfo));
+    expect(result, Right(listMangaInfo));
     //Verify that the method has been called on the Repository
-    verify(testDashboardRepository.getRandomScan());
+    verify(testDashboardRepository.getListMangaPerSource("mangaRock"));
     //Verify the repository is only doing the task is has been called for
     verifyNoMoreInteractions(testDashboardRepository);
   });

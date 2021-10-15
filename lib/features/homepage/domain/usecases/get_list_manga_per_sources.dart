@@ -5,14 +5,14 @@ import '../../../../core/usecases.dart';
 import '../entities/MangaInfo.dart';
 import '../repositories/HomePage_repository.dart';
 
-class GetListScanPerSource extends UseCase<List<MangaInfo>, NoParams> {
+class GetListMangaPerSource extends UseCase<List<MangaInfo>, Params> {
   final HomePageRepository repository;
 
-  GetListScanPerSource(this.repository);
+  GetListMangaPerSource(this.repository);
 
   @override
-  Future<Either<Failure, List<MangaInfo>>> call(NoParams? params) async {
-    return await repository.getListScanPerSource();
+  Future<Either<Failure, List<MangaInfo>>> call(Params? params) async {
+    return await repository.getListMangaPerSource(params!.sourceName);
   }
 }
 
