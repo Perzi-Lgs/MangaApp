@@ -61,15 +61,15 @@ void main() {
         'Authorization': 'token a recup'
       }));
     });
-    test('should timeout if the server doesnt answer', () {
-      setUpMockHttpWithTimeoutException();
-      when(mockHttpClient.get(any, headers: anyNamed('headers')))
-          .thenThrow((_) async => TimeoutException("message"));
+    // test('should timeout if the server doesnt answer', () {
+    //   setUpMockHttpWithTimeoutException();
+    //   when(mockHttpClient.get(any, headers: anyNamed('headers')))
+    //       .thenThrow((_) async => TimeoutException("message"));
 
-      final call = dataSource.getRandomScan;
-      expect(() => call(),
-          throwsA(TypeMatcher<ServerException>()));
-    });
+    //   final call = dataSource.getRandomScan;
+    //   expect(() => call(),
+    //       throwsA(TypeMatcher<ServerException>()));
+    // });
 
     test('''should return List<MangaInfoModel> when the answer is 200''', () async {
       setUpMockHttpWithSuccess200();
@@ -86,25 +86,25 @@ void main() {
     });
   });
 
-  group('getRandomScan', () {
-    test('''should preform a GET request on the
-        server url and with application/json header''', () {
-      when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
-          (_) async => http.Response(fixture('Manga_info.json'), 200));
+  // group('getRandomScan', () {
+  //   test('''should preform a GET request on the
+  //       server url and with application/json header''', () {
+  //     when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+  //         (_) async => http.Response(fixture('Manga_info.json'), 200));
 
-      dataSource.getRandomScan();
-      verify(mockHttpClient.get(Uri.http('ip', 'path'),
-          headers: {'Content-Type': 'application/json',  'Authorization': 'token a recup'
-      }));
-    });
+  //     dataSource.getRandomScan();
+  //     verify(mockHttpClient.get(Uri.http('ip', 'path'),
+  //         headers: {'Content-Type': 'application/json',  'Authorization': 'token a recup'
+  //     }));
+  //   });
 
-    test('should timeout if the server doesnt answer', () {
-      setUpMockHttpWithTimeoutException();
-      when(mockHttpClient.get(any, headers: anyNamed('headers')))
-          .thenThrow((_) async => TimeoutException("message"));
+  //   test('should timeout if the server doesnt answer', () {
+  //     setUpMockHttpWithTimeoutException();
+  //     when(mockHttpClient.get(any, headers: anyNamed('headers')))
+  //         .thenThrow((_) async => TimeoutException("message"));
 
-      final call = dataSource.getRandomScan;
-      expect(() => call(), throwsA(TypeMatcher<ServerException>()));
-    });
-  });
+  //     final call = dataSource.getRandomScan;
+  //     expect(() => call(), throwsA(TypeMatcher<ServerException>()));
+  //   });
+  // });
 }
