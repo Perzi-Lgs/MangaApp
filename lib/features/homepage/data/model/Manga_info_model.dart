@@ -1,4 +1,5 @@
-import '../../domain/entities/mangaInfo.dart';
+import '../../domain/entities/MangaInfo.dart';
+
 import 'Link_model.dart';
 
 class MangaInfoModel extends MangaInfo {

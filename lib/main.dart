@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/config/themes/dark_theme.dart';
 
 import 'config/routes/route_generator.dart';
 
@@ -14,6 +15,7 @@ class Manga extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
+      theme: darkTheme,
     );
   }
 }

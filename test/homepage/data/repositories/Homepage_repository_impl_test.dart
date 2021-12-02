@@ -55,7 +55,9 @@ main() {
       when(mockRemoteDataSource.getRandomScan())
           .thenAnswer((_) async => tMangaInfoModel);
 
-      repository.getRandomScan();
+      try {
+        repository.getRandomScan();
+      } catch (e) {}
       verify(mockNetworkInfo.isConnected);
     });
     test('Should get remote data when the call to remote data is successful',
@@ -85,14 +87,7 @@ main() {
         expect(result, equals(Left(ServerFailure(timeoutServerError))));
       },
     );
-    //   test('Should return Future MangaInfoModel when the GET is successful', () async {
-    //     final tStepsModel = StepsModel(stepsMade: 10, day: 1);
-    //     when(mockRemoteDataSource.sendTodaySteps(tStepsModel))
-    //         .thenAnswer((_) => (Future.value(Right(0))));
-    //     await repository.sendSteps(tStepsModel);
-    //     verify(mockRemoteDataSource.sendTodaySteps(tStepsModel));
-    //   });
-    // });
+  });
 
     group('Device offline', () {
       setUp(() {
@@ -108,5 +103,4 @@ main() {
         expect(result, Left(ServerFailure(timeoutServerError)));
       });
     });
-  });
 }

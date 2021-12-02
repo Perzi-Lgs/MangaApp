@@ -1,0 +1,13 @@
+{
+    "errors": [
+      {
+        "message": "Unexpected \"plop\"",
+        "locations": [
+          {
+            "line": 1,
+            "column": 1
+          }
+        ]
+      }
+    ]
+}

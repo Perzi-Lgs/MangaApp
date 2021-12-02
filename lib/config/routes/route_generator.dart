@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../features/homepage/presentation/pages/homePage/homePage.dart';
 import '../../core/errors/error_route.dart';
 
 class RouteGenerator {
@@ -11,14 +12,5 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomePage());
     }
     return errorRoute();
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

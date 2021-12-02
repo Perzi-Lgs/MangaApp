@@ -1,3 +1,5 @@
+import 'package:mobile/constants/error_message_constant.dart';
+import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/core/network.dart';
 import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
@@ -14,12 +16,30 @@ class HomePageRepositoryImpl implements HomePageRepository {
 
   @override
   Future<Either<Failure, List<MangaInfo>>> getListMangaPerSource(
-      String sourceName) {
-    throw UnimplementedError();
+      String sourceName) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final mangaList = await remoteDataSource.getListMangaInfoPerSource(sourceName);
+        return Right(mangaList);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.message));
+      }
+    } else {
+      return Left(ServerFailure(timeoutServerError));
+    }
   }
 
   @override
-  Future<Either<Failure, MangaInfo>> getRandomScan() {
-    throw UnimplementedError();
+  Future<Either<Failure, MangaInfo>> getRandomScan() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final randomManga = await remoteDataSource.getRandomScan();
+        return Right(randomManga);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.message));
+      }
+    } else {
+      return Left(ServerFailure(timeoutServerError));
+    }
   }
 }
