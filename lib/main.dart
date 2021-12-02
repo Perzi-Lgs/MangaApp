@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/dark_theme.dart';
+import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
 
 import 'config/routes/route_generator.dart';
 
@@ -12,10 +14,13 @@ class Manga extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generateRoute,
-      theme: darkTheme,
+    return BlocProvider(
+      create: (context) => NavbarBloc(),
+      child: MaterialApp(
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
+        theme: darkTheme,
+      ),
     );
   }
 }

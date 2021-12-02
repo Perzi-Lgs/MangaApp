@@ -19,6 +19,17 @@ ThemeData get darkTheme {
     ),
     appBarTheme: AppBarTheme(
       color: CustomColors.darkGrey,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: CustomColors.darkGrey,
+      selectedItemColor: CustomColors.mainBlue,
+      unselectedItemColor: CustomColors.lightGrey,
+      selectedLabelStyle: TextStyle(
+        fontSize: 10
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontSize: 10
+      )
     )
   );
 }
