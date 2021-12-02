@@ -1,0 +1,24 @@
+[
+        {
+            "cover": "urlcover",
+            "linkMangaName": {
+                "url" : "testUrl",
+                "name": "test"
+            },
+            "linkChapter": {
+                "url" : "testUrl",
+                "name": "test"
+            }
+        },
+        {
+            "cover": "urlcover",
+            "linkMangaName": {
+                "url" : "testUrl",
+                "name": "test"
+            },
+            "linkChapter": {
+                "url" : "testUrl",
+                "name": "test"
+            }
+        }
+]
