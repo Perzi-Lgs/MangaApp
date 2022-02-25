@@ -4,13 +4,13 @@ import '../../../../core/usecases.dart';
 import '../entities/MangaInfo.dart';
 import '../repositories/HomePage_repository.dart';
 
-class GetRandomScan extends UseCase<MangaInfo, NoParams> {
+class GetHomepageScans extends UseCase<List<MangaInfo>, NoParams> {
   final HomePageRepository repository;
 
-  GetRandomScan(this.repository);
+  GetHomepageScans(this.repository);
 
   @override
-  Future<Either<Failure, MangaInfo>> call(NoParams? params) async {
-    return await repository.getRandomScan();
+  Future<Either<Failure, List<MangaInfo>>> call(NoParams? params) async {
+    return await repository.getHomepageScans();
   }
 }

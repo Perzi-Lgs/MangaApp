@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 abstract class HomepageRemoteDataSource {
   Future<List<MangaInfoModel>> getListMangaInfoPerSource(String source);
-  Future<MangaInfoModel> getRandomScan();
+  Future<List<MangaInfoModel>> getHomepageScans();
 }
 
 class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
@@ -46,17 +46,17 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
   }
 
   @override
-  Future<MangaInfoModel> getRandomScan() async {
+  Future<List<MangaInfoModel>> getHomepageScans() async {
     http.Response response;
 
-    return MangaInfoModel(cover: "plop", linkMangaName: LinkModel(name: "plop",url: "plopi"), linkChapter: LinkModel(name: "chpt", url: "url"));
+    // return [MangaInfoModel(cover: "plop", linkMangaName: LinkModel(name: "plop",url: "plopi"), linkChapter: LinkModel(name: "chpt", url: "url"))];
 
     try {
       response = await client.get(
-        Uri.http('ip', 'path'),
+        Uri.http('10.41.146.115:6868', '/home'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'token a recup'
+          // 'Authorization': 'token a recup'
         }
       ).timeout(const Duration(seconds: 5));
     } catch (e) {
@@ -66,7 +66,7 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
     if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
 
-      MangaInfoModel result = MangaInfoModel.fromJson(data);
+      List<MangaInfoModel> result = [MangaInfoModel.fromJson(data)];
       return Future.value(result);
     } else {
       throw ServerException(response.statusCode.toString());

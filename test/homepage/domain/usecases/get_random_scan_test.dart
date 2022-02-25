@@ -4,7 +4,7 @@ import 'package:mobile/core/usecases.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaLink.dart';
 import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
-import 'package:mobile/features/homepage/domain/usecases/get_random_scan.dart';
+import 'package:mobile/features/homepage/domain/usecases/get_homepage_scans.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

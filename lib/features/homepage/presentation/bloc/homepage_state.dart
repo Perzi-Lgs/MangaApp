@@ -1,39 +1,27 @@
 part of 'homepage_bloc.dart';
 
-abstract class HomepageState extends Equatable {
-  const HomepageState();
+enum HomepageStatus { initial, loading, success, failure }
+
+extension HomepageStatusX on HomepageStatus {
+  bool get isInitial => this == HomepageStatus.initial;
+  bool get isLoading => this == HomepageStatus.loading;
+  bool get isSuccess => this == HomepageStatus.success;
+  bool get isFailure => this == HomepageStatus.failure;
+}
+
+class HomepageState extends Equatable {
+  HomepageState({
+    this.status = HomepageStatus.initial,
+    List<MangaInfo>? infos,
+  }) : infos = infos ?? [];
   
-  @override
-  List<Object> get props => [];
-}
+  final HomepageStatus status;
+  final List<MangaInfo> infos;
 
-class HomepageInitial extends HomepageState {
-  const HomepageInitial();
-  
-  @override
-  List<Object> get props => [];
-}
-
-class HomepageIsLoading extends HomepageState {
-  const HomepageIsLoading();
-  
-  @override
-  List<Object> get props => [];
-}
-
-class HomepageLoaded extends HomepageState {
-  const HomepageLoaded();
+  HomepageState copyWith({HomepageStatus? status, List<MangaInfo>? infos}) {
+    return HomepageState(infos: infos ?? this.infos, status: status?? this.status);
+  }
 
   @override
-  List<Object> get props => [];
-
-}
-
-class Error extends HomepageState {
-  final String message;
-
-  Error({required this.message});
-
-  @override
-  List<Object> get props => [message];
+  List<Object> get props => [status, infos];
 }
