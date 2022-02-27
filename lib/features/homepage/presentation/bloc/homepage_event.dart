@@ -20,3 +20,12 @@ class RefetchHomeMangaPage extends HomepageEvent {
   @override
   List<Object> get props => [];
 }
+
+class ChangeTabMangaPage extends HomepageEvent {
+  const ChangeTabMangaPage({required this.tab});
+
+  final HomepageTab tab;
+
+  @override
+  List<Object> get props => [tab];
+}

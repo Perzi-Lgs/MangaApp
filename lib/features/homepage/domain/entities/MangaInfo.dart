@@ -1,26 +1,24 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile/features/homepage/domain/entities/MangaLink.dart';
 
 class MangaInfo extends Equatable {
-  final String cover; //urlCover
-  final MangaLink linkMangaName;
-  final MangaLink linkChapter;
+  final String img; //urlimg
+  final String name; //urlimg
+  final String url; //urlimg
 
   MangaInfo(
-      {required this.cover,
-      required this.linkMangaName,
-      required this.linkChapter});
+      {required this.img,
+      required this.name, required this.url});
 
   static final empty = MangaInfo(
-    cover: '',
-    linkChapter: MangaLink.empty,
-    linkMangaName: MangaLink.empty
+    img: '',
+    url: '',
+    name: '',
   );
 
-  MangaInfo copyWith({String? cover, MangaLink? linkMangaName, MangaLink? linkChapter}) {
-    return MangaInfo(cover: cover ?? this.cover,linkMangaName: linkMangaName ?? this.linkMangaName, linkChapter: linkChapter ?? this.linkChapter);
+  MangaInfo copyWith({String? img, String? url, String? name}) {
+    return MangaInfo(img: img ?? this.img, url: url ?? this.url, name: name ?? this.name);
   }
 
   @override
-  List<Object?> get props => [cover, linkMangaName, linkChapter];
+  List<Object?> get props => [img, url, name];
 }
