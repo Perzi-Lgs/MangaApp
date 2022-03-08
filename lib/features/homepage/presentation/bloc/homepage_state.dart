@@ -42,5 +42,5 @@ class HomepageState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, infos];
+  List<Object> get props => [tab, status, infos];
 }
