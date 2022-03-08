@@ -11,25 +11,17 @@ class HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomepageBloc(getHomepageScans: sl()),
+      create: (_) =>
+          HomepageBloc(getHomepageScans: sl())..add(FetchHomeMangaPage()),
       child: BlocBuilder<HomepageBloc, HomepageState>(
         builder: (context, state) {
           return RefreshIndicator(
-            onRefresh: () async {
-              return BlocProvider.of<HomepageBloc>(context).add(FetchHomeMangaPage());
-            },
-            child: Stack(children: [
-              MangaGridView(mangaData: state.infos, status: state.status),
-              Container(
-              color: Colors.red,
-              child: FloatingActionButton(
-                  onPressed: () {
-                    BlocProvider.of<HomepageBloc>(context).add(FetchHomeMangaPage());
-                  },
-                  backgroundColor: Colors.green),
-            )
-            ],),
-          );
+              onRefresh: () async {
+                BlocProvider.of<HomepageBloc>(context)
+                    .add(FetchHomeMangaPage());
+              },
+              child:
+                  MangaGridView(mangaData: state.infos, status: state.status));
         },
       ),
     );
