@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:mobile/constants/error_message_constant.dart';
 import 'package:mobile/core/errors/exception.dart';
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 abstract class HomepageRemoteDataSource {
   Future<List<MangaInfoModel>> getListMangaInfoPerSource(String source);
-  Future<List<MangaInfoModel>> getHomepageScans(String route);
+  Future<List<MangaInfoModel>> getHomepageScans(String route, int page);
 }
 
 class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
@@ -45,19 +46,18 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
   }
 
   @override
-  Future<List<MangaInfoModel>> getHomepageScans(String route) async {
+  Future<List<MangaInfoModel>> getHomepageScans(String route, int page) async {
     http.Response response;
 
-    print(route);
     try {
       response = await client.get(
-        Uri.http('15.237.95.78:80', route),
-          // Uri.http('192.168.43.221:6868', route),
+        Uri.http('15.237.95.78', route, {'page': page.toString()}),
         headers: {
           'Content-Type': 'application/json',
           // 'Authorization': 'token a recup'
         }
       ).timeout(const Duration(seconds: 5));
+      print(response);
     } catch (e) {
       throw ServerException(timeoutServerError);
     }

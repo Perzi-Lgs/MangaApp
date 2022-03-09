@@ -12,14 +12,15 @@ class GetHomepageScans extends UseCase<List<MangaInfo>, Params> {
 
   @override
   Future<Either<Failure, List<MangaInfo>>> call(Params? params) async {
-    return await repository.getHomepageScans(params!.route);
+    return await repository.getHomepageScans(params!.route, params.page);
   }
 }
 class Params extends Equatable {
   final String route;
+  final int page;
 
-  Params({required this.route});
+  Params({required this.route, this.page = 1});
 
   @override
-  List<Object?> get props => [route];
+  List<Object?> get props => [route, page];
 }
