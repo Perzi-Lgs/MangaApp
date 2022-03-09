@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobile/core/usecases.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/usecases/get_homepage_scans.dart';
 

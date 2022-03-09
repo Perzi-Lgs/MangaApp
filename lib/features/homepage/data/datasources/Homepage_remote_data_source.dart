@@ -51,7 +51,8 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
     print(route);
     try {
       response = await client.get(
-        Uri.http('10.41.146.115:6868', route),
+        Uri.http('15.237.95.78:80', route),
+          // Uri.http('192.168.43.221:6868', route),
         headers: {
           'Content-Type': 'application/json',
           // 'Authorization': 'token a recup'
