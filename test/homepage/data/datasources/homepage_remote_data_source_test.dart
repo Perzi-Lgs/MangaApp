@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
@@ -34,10 +32,10 @@ void main() {
         (_) async => http.Response(fixture('mangaInfoList.json'), 200));
   }
 
-  void setUpMockHttpWithTimeoutException() {
-    when(mockHttpClient.get(any, headers: anyNamed('headers')))
-        .thenThrow((_) async => TimeoutException("message"));
-  }
+  // void setUpMockHttpWithTimeoutException() {
+  //   when(mockHttpClient.get(any, headers: anyNamed('headers')))
+  //       .thenThrow((_) async => TimeoutException("message"));
+  // }
   
   final List<MangaInfoModel> tMangaInfoList = [
     MangaInfoModel(img: 'img', name: 'name', url: 'url'),

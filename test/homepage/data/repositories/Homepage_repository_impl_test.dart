@@ -7,7 +7,6 @@ import 'package:mobile/core/network.dart';
 import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
 import 'package:mobile/features/homepage/data/model/Manga_info_model.dart';
 import 'package:mobile/features/homepage/data/repositories/HomePage_repository_impl.dart';
-import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -40,9 +39,6 @@ main() {
       url: 'testUrlchapter',
       name: 'testUrlname');
   
-  final tMangaInfo = MangaInfo(
-      img: "testurlCover", url: 'testUrlchapter', name: 'testUrlname');
-
   test('Should be a subclass HomePageRepository', () {
     expect(repository, isA<HomePageRepository>());
   });
@@ -63,12 +59,10 @@ main() {
     });
     test('Should get remote data when the call to remote data is successful',
         () async {
-      late final result;
-
       when(mockRemoteDataSource.getHomepageScans(any))
           .thenAnswer((_) async => [tMangaInfoModel]);
 
-      result = await repository.getHomepageScans('home');
+      await repository.getHomepageScans('home');
 
       verify(mockRemoteDataSource.getHomepageScans('/home'));
       verify(mockNetworkInfo.isConnected);
