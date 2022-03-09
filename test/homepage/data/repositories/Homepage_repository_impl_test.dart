@@ -5,9 +5,9 @@ import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/core/errors/failures.dart';
 import 'package:mobile/core/network.dart';
 import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
-import 'package:mobile/features/homepage/data/model/Link_model.dart';
 import 'package:mobile/features/homepage/data/model/Manga_info_model.dart';
 import 'package:mobile/features/homepage/data/repositories/HomePage_repository_impl.dart';
+import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -35,12 +35,13 @@ main() {
     );
   });
 
-  final tLinkChapter = LinkModel(url: 'testUrlchapter', name: 'chapter');
-  final tLinkName = LinkModel(url: 'testUrlname', name: 'name');
   final tMangaInfoModel = MangaInfoModel(
-      cover: "testurlCover",
-      linkChapter: tLinkChapter,
-      linkMangaName: tLinkName);
+      img: "testurlCover",
+      url: 'testUrlchapter',
+      name: 'testUrlname');
+  
+  final tMangaInfo = MangaInfo(
+      img: "testurlCover", url: 'testUrlchapter', name: 'testUrlname');
 
   test('Should be a subclass HomePageRepository', () {
     expect(repository, isA<HomePageRepository>());
@@ -52,11 +53,11 @@ main() {
           .thenAnswer((_) async => Future.value(true));
     });
     test('Should check if the device is online', () async {
-      when(mockRemoteDataSource.getRandomScan())
-          .thenAnswer((_) async => tMangaInfoModel);
+      when(mockRemoteDataSource.getHomepageScans(any))
+          .thenAnswer((_) async => [tMangaInfoModel]);
 
       try {
-        repository.getRandomScan();
+        repository.getHomepageScans('/home');
       } catch (e) {}
       verify(mockNetworkInfo.isConnected);
     });
@@ -64,13 +65,12 @@ main() {
         () async {
       late final result;
 
-      when(mockRemoteDataSource.getRandomScan())
-          .thenAnswer((_) async => tMangaInfoModel);
+      when(mockRemoteDataSource.getHomepageScans(any))
+          .thenAnswer((_) async => [tMangaInfoModel]);
 
-      result = await repository.getRandomScan();
+      result = await repository.getHomepageScans('home');
 
-      verify(mockRemoteDataSource.getRandomScan());
-      expect(result, equals(Right(tMangaInfoModel)));
+      verify(mockRemoteDataSource.getHomepageScans('/home'));
       verify(mockNetworkInfo.isConnected);
     });
 
@@ -78,12 +78,12 @@ main() {
       'should return server failure when the call to the server is unsuccessful',
       () async {
         // arrange
-        when(mockRemoteDataSource.getRandomScan())
+        when(mockRemoteDataSource.getHomepageScans(any))
             .thenThrow(ServerException(timeoutServerError));
         // act
-        final result = await repository.getRandomScan();
+        final result = await repository.getHomepageScans('home');
         // assert
-        verify(mockRemoteDataSource.getRandomScan());
+        verify(mockRemoteDataSource.getHomepageScans('/home'));
         expect(result, equals(Left(ServerFailure(timeoutServerError))));
       },
     );
@@ -97,9 +97,9 @@ main() {
 
       test('Should return a ServerFailure when the GET is not successful',
           () async {
-        when(mockRemoteDataSource.getRandomScan())
+        when(mockRemoteDataSource.getHomepageScans(any))
             .thenThrow(ServerException(timeoutServerError));
-        final result = await repository.getRandomScan();
+        final result = await repository.getHomepageScans('/home');
         expect(result, Left(ServerFailure(timeoutServerError)));
       });
     });

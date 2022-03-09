@@ -22,10 +22,7 @@ void main() {
   });
 
   final listMangaInfo = [
-    MangaInfo(
-        cover: "fakeUrl.com",
-        linkMangaName: MangaLink(url: "mangaLink", name: "Manga Name"),
-        linkChapter: MangaLink(url: "ChapterLink", name: "Chapter 42"))
+    MangaInfo(img: 'img', name: 'name', url: 'url')
   ];
 
   test('should get MangaInfo List from the repository', () async {

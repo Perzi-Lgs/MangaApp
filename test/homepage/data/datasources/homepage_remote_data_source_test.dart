@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
-import 'package:mobile/features/homepage/data/model/Link_model.dart';
 import 'package:mobile/features/homepage/data/model/Manga_info_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -39,15 +38,10 @@ void main() {
     when(mockHttpClient.get(any, headers: anyNamed('headers')))
         .thenThrow((_) async => TimeoutException("message"));
   }
-
-  final tlinkModel = LinkModel(
-    url: 'testUrl',
-    name: 'test',
-  );
   
   final List<MangaInfoModel> tMangaInfoList = [
-    MangaInfoModel(cover: 'urlcover', linkChapter: tlinkModel, linkMangaName: tlinkModel),
-    MangaInfoModel(cover: 'urlcover', linkChapter: tlinkModel, linkMangaName: tlinkModel),
+    MangaInfoModel(img: 'img', name: 'name', url: 'url'),
+    MangaInfoModel(img: 'img', name: 'name', url: 'url'),
   ];
 
   group('getListMangaInfoPerSource', () {

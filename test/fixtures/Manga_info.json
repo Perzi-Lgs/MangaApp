@@ -1,11 +1,5 @@
 {
-    "cover": "testurlCover",
-    "linkMangaName": {
-        "url" : "testUrlname",
-        "name": "name"
-    },
-    "linkChapter": {
-        "url" : "testUrlchapter",
-        "name": "chapter"
-    }
+    "img": "img",
+    "name":"name",
+    "url": "url"
 }
