@@ -2,11 +2,13 @@
     {
         "img": "img",
         "name": "name",
-        "url": "url"
+        "url": "url",
+        "author": "author"
     },
     {
         "img": "img",
         "name": "name",
-        "url": "url"
+        "url": "url",
+        "author": "author"
     }
 ]

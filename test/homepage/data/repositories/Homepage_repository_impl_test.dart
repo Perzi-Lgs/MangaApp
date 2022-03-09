@@ -37,7 +37,7 @@ main() {
   final tMangaInfoModel = MangaInfoModel(
       img: "testurlCover",
       url: 'testUrlchapter',
-      name: 'testUrlname');
+      name: 'testUrlname', author: 'author');
   
   test('Should be a subclass HomePageRepository', () {
     expect(repository, isA<HomePageRepository>());
