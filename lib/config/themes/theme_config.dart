@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomColors {
   static const Color darkGrey = Color(0xff212121);

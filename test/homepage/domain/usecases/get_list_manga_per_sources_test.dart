@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
-import 'package:mobile/features/homepage/domain/entities/MangaLink.dart';
 import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
 import 'package:mobile/features/homepage/domain/usecases/get_list_manga_per_sources.dart';
 import 'package:mockito/annotations.dart';
@@ -22,10 +21,7 @@ void main() {
   });
 
   final listMangaInfo = [
-    MangaInfo(
-        cover: "fakeUrl.com",
-        linkMangaName: MangaLink(url: "mangaLink", name: "Manga Name"),
-        linkChapter: MangaLink(url: "ChapterLink", name: "Chapter 42"))
+    MangaInfo(img: 'img', name: 'name', url: 'url')
   ];
 
   test('should get MangaInfo List from the repository', () async {

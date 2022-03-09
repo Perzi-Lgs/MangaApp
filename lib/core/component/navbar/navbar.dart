@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
-import 'package:provider/src/provider.dart';
 
 class MangaNavbar extends StatelessWidget {
   final index;

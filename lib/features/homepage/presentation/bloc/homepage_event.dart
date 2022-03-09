@@ -7,9 +7,25 @@ abstract class HomepageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class Update extends HomepageEvent {
-  const Update();
+class FetchHomeMangaPage extends HomepageEvent {
+  const FetchHomeMangaPage();
 
   @override
   List<Object> get props => [];
+}
+
+class RefetchHomeMangaPage extends HomepageEvent {
+  const RefetchHomeMangaPage();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ChangeTabMangaPage extends HomepageEvent {
+  const ChangeTabMangaPage({required this.tab});
+
+  final HomepageTab tab;
+
+  @override
+  List<Object> get props => [tab];
 }

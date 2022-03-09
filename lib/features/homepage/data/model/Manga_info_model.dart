@@ -1,29 +1,21 @@
 import '../../domain/entities/MangaInfo.dart';
 
-import 'Link_model.dart';
-
 class MangaInfoModel extends MangaInfo {
   MangaInfoModel({
-    required String cover,
-    required LinkModel linkMangaName,
-    required LinkModel linkChapter,
-  }) : super(
-            cover: cover,
-            linkMangaName: linkMangaName,
-            linkChapter: linkChapter);
+    required String img,
+    required String url,
+    required String name,
+  }) : super(img: img, url: url, name: name);
 
   factory MangaInfoModel.fromJson(Map<String, dynamic> json) {
     return MangaInfoModel(
-        cover: json['cover'],
-        linkChapter: LinkModel.fromJson(json["linkChapter"]),
-        linkMangaName: LinkModel.fromJson(json["linkMangaName"]));
+      url: json['url'],
+      img: json['img'],
+      name: json['name'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'cover': cover,
-      'linkChapter': {"url": linkChapter.url, "name": linkChapter.name},
-      'linkMangaName': {"url": linkMangaName.url, "name": linkMangaName.name}
-    };
+    return {'img': img, 'name': name, 'url': url};
   }
 }
