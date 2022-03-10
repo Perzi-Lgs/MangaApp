@@ -45,33 +45,36 @@ class MangaGridView extends StatelessWidget {
           children: [
             TabBar(tabs: homepageTabs),
             Flexible(
-              child: LoadAny(
-                errorMsg: 'Error',
-                finishMsg: 'Finished',
-                loadingMsg: 'Loading',
-                endLoadMore: false,
-                onLoadMore: () {
-                  BlocProvider.of<HomepageBloc>(context).add(LoadMorePage());
-                  return Future.value(0);
-                },
-                status: _getStatusFromState(),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverGrid(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return _buildCardView(mangaData[index]);
-                        },
-                        childCount: mangaData.length,
-                      ),
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: size.width / 3,
-                        mainAxisSpacing: 10.0,
-                        crossAxisSpacing: 10.0,
-                        childAspectRatio: itemWidth / itemHeight,
-                      ),
-                    )
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LoadAny(
+                  errorMsg: 'Error',
+                  finishMsg: 'Finished',
+                  loadingMsg: 'Loading',
+                  endLoadMore: false,
+                  onLoadMore: () {
+                    BlocProvider.of<HomepageBloc>(context).add(LoadMorePage());
+                    return Future.value(0);
+                  },
+                  status: _getStatusFromState(),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverGrid(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return _buildCardView(mangaData[index]);
+                          },
+                          childCount: mangaData.length,
+                        ),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: size.width / 3,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 10.0,
+                          childAspectRatio: itemWidth / itemHeight,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
