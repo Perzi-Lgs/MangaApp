@@ -21,7 +21,7 @@ void main() {
   });
 
   final listMangaInfo = [
-    MangaInfo(img: 'img', name: 'name', url: 'url', author: 'author')
+    MangaInfo(img: 'img', name: 'name', url: 'url')
   ];
 
   test('should get MangaInfo List from the repository', () async {

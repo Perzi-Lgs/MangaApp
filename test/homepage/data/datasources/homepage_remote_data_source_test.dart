@@ -38,8 +38,8 @@ void main() {
   // }
   
   final List<MangaInfoModel> tMangaInfoList = [
-    MangaInfoModel(img: 'img', name: 'name', url: 'url', author: 'author'),
-    MangaInfoModel(img: 'img', name: 'name', url: 'url', author: 'author'),
+    MangaInfoModel(img: 'img', name: 'name', url: 'url'),
+    MangaInfoModel(img: 'img', name: 'name', url: 'url'),
   ];
 
   group('getListMangaInfoPerSource', () {

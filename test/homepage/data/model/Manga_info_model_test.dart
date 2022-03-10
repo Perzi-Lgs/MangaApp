@@ -7,7 +7,7 @@ import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import '../../../fixtures/fixtures_reader.dart';
 
 void main() {
-  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url', author: 'author');
+  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url');
 
   test(
     'should be a subclass of Mangainfo entity',
@@ -34,8 +34,7 @@ void main() {
       final expectedJsonMap = {
         "img": "img",
         "name": "name",
-        "url": "url",
-        "author": "author"
+        "url": "url"
       };
       expect(result, expectedJsonMap);
     });
