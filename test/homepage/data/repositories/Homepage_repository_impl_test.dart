@@ -49,22 +49,22 @@ main() {
           .thenAnswer((_) async => Future.value(true));
     });
     test('Should check if the device is online', () async {
-      when(mockRemoteDataSource.getHomepageScans(any))
+      when(mockRemoteDataSource.getHomepageScans(any, any))
           .thenAnswer((_) async => [tMangaInfoModel]);
 
       try {
-        repository.getHomepageScans('/home');
+        repository.getHomepageScans('/home', 1);
       } catch (e) {}
       verify(mockNetworkInfo.isConnected);
     });
     test('Should get remote data when the call to remote data is successful',
         () async {
-      when(mockRemoteDataSource.getHomepageScans(any))
+      when(mockRemoteDataSource.getHomepageScans(any, any))
           .thenAnswer((_) async => [tMangaInfoModel]);
 
-      await repository.getHomepageScans('home');
+      await repository.getHomepageScans('home', 1);
 
-      verify(mockRemoteDataSource.getHomepageScans('/home'));
+      verify(mockRemoteDataSource.getHomepageScans('/home', 1));
       verify(mockNetworkInfo.isConnected);
     });
 
@@ -72,12 +72,12 @@ main() {
       'should return server failure when the call to the server is unsuccessful',
       () async {
         // arrange
-        when(mockRemoteDataSource.getHomepageScans(any))
+        when(mockRemoteDataSource.getHomepageScans(any, any))
             .thenThrow(ServerException(timeoutServerError));
         // act
-        final result = await repository.getHomepageScans('home');
+        final result = await repository.getHomepageScans('home', 1);
         // assert
-        verify(mockRemoteDataSource.getHomepageScans('/home'));
+        verify(mockRemoteDataSource.getHomepageScans('/home', 1));
         expect(result, equals(Left(ServerFailure(timeoutServerError))));
       },
     );
@@ -91,9 +91,9 @@ main() {
 
       test('Should return a ServerFailure when the GET is not successful',
           () async {
-        when(mockRemoteDataSource.getHomepageScans(any))
+        when(mockRemoteDataSource.getHomepageScans(any, any))
             .thenThrow(ServerException(timeoutServerError));
-        final result = await repository.getHomepageScans('/home');
+        final result = await repository.getHomepageScans('/home', 1);
         expect(result, Left(ServerFailure(timeoutServerError)));
       });
     });

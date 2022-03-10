@@ -29,3 +29,12 @@ class ChangeTabMangaPage extends HomepageEvent {
   @override
   List<Object> get props => [tab];
 }
+
+class LoadMorePage extends HomepageEvent {
+  const LoadMorePage({this.numberPage = 1});
+
+  final int numberPage;
+
+  @override
+  List<Object> get props => [numberPage];
+}

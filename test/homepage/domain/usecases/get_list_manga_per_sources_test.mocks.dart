@@ -34,8 +34,8 @@ class MockTestHomePageRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, List<_i6.MangaInfo>>> getHomepageScans(
-          String? route) =>
-      (super.noSuchMethod(Invocation.method(#getHomepageScans, [route]),
+          String? route, int? page) =>
+      (super.noSuchMethod(Invocation.method(#getHomepageScans, [route, page]),
               returnValue:
                   Future<_i2.Either<_i5.Failure, List<_i6.MangaInfo>>>.value(
                       _FakeEither_0<_i5.Failure, List<_i6.MangaInfo>>()))

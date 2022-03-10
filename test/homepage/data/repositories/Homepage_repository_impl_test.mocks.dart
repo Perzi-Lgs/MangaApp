@@ -37,8 +37,9 @@ class MockTHomepageRemoteDataSource extends _i1.Mock
           returnValue: Future<List<_i4.MangaInfoModel>>.value(
               <_i4.MangaInfoModel>[])) as _i3.Future<List<_i4.MangaInfoModel>>);
   @override
-  _i3.Future<List<_i4.MangaInfoModel>> getHomepageScans(String? route) =>
-      (super.noSuchMethod(Invocation.method(#getHomepageScans, [route]),
+  _i3.Future<List<_i4.MangaInfoModel>> getHomepageScans(
+          String? route, int? page) =>
+      (super.noSuchMethod(Invocation.method(#getHomepageScans, [route, page]),
           returnValue: Future<List<_i4.MangaInfoModel>>.value(
               <_i4.MangaInfoModel>[])) as _i3.Future<List<_i4.MangaInfoModel>>);
 }

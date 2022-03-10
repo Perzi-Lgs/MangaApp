@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loadany/loadany_widget.dart';
 import 'package:mobile/features/homepage/presentation/bloc/homepage_bloc.dart';
 
 import '../../domain/entities/MangaInfo.dart';
@@ -25,7 +26,6 @@ class MangaGridView extends StatelessWidget {
       ));
     });
     final size = MediaQuery.of(context).size;
-    final data = mangaData.map((e) => _buildCardView(e)).toList();
 
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -36,21 +36,47 @@ class MangaGridView extends StatelessWidget {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            return BlocProvider.of<HomepageBloc>(context)
-                .add(ChangeTabMangaPage(tab: HomepageTab.values[tabController.index]));
+            return BlocProvider.of<HomepageBloc>(context).add(
+                ChangeTabMangaPage(
+                    tab: HomepageTab.values[tabController.index]));
           }
         });
         return Column(
           children: [
             TabBar(tabs: homepageTabs),
             Flexible(
-              child: GridView.count(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  childAspectRatio: itemWidth / itemHeight,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 3,
-                  children: data),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LoadAny(
+                  errorMsg: 'Error',
+                  finishMsg: 'Finished',
+                  loadingMsg: 'Loading',
+                  endLoadMore: false,
+                  onLoadMore: () {
+                    BlocProvider.of<HomepageBloc>(context).add(LoadMorePage());
+                    return Future.value(0);
+                  },
+                  status: _getStatusFromState(),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverGrid(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return _buildCardView(mangaData[index]);
+                          },
+                          childCount: mangaData.length,
+                        ),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: size.width / 3,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 10.0,
+                          childAspectRatio: itemWidth / itemHeight,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -97,6 +123,19 @@ class MangaGridView extends StatelessWidget {
       default:
         return Center(
             child: Text('error', style: TextStyle(color: Colors.red)));
+    }
+  }
+
+  _getStatusFromState() {
+    switch (status) {
+      case HomepageStatus.initial:
+        return LoadStatus.normal;
+      case HomepageStatus.failure:
+        return LoadStatus.error;
+      case HomepageStatus.success:
+        return LoadStatus.normal;
+      case HomepageStatus.loading:
+        return LoadStatus.loading;
     }
   }
 }

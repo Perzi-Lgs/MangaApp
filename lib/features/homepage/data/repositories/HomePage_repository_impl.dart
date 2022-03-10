@@ -30,10 +30,10 @@ class HomePageRepositoryImpl implements HomePageRepository {
   }
 
   @override
-  Future<Either<Failure, List<MangaInfo>>> getHomepageScans(String route) async {
+  Future<Either<Failure, List<MangaInfo>>> getHomepageScans(String route, int page) async {
     if (await networkInfo.isConnected) {
       try {
-        final homePageManga = await remoteDataSource.getHomepageScans('/' + route);
+        final homePageManga = await remoteDataSource.getHomepageScans('/' + route, page);
         return Right(homePageManga);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));

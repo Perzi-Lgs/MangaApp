@@ -13,6 +13,7 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     on<FetchHomeMangaPage>(_onFetchManga);
     on<RefetchHomeMangaPage>(_onRefetchManga);
     on<ChangeTabMangaPage>(_onChangeTab);
+    on<LoadMorePage>(_loadMorePage);
   }
 
   void _onFetchManga(
@@ -61,6 +62,18 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     }
   }
 
+  void _loadMorePage(LoadMorePage event, Emitter<HomepageState> emit) async {
+    emit(state.copyWith(status: HomepageStatus.loading));
+    for (var i = state.page + 1; i <= state.page + event.numberPage; i++) {
+      print(state.page);
+      print(event.numberPage);
+      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(state.tab), page: i));
+      scansHomePage.fold((l) => emit(state.copyWith(status: HomepageStatus.failure)), (r) => state.infos.addAll(r));
+    }
+    print(state.infos.length);
+    emit(state.copyWith(page: state.page + event.numberPage, status: HomepageStatus.success));
+  }
+
   String _tabsConverter(HomepageTab tab) {
     switch (tab) {
       case HomepageTab.home:
@@ -75,5 +88,4 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
         return tab.getHome;
     }
   }
-
 }
