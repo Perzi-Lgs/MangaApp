@@ -32,19 +32,16 @@ class MangaGridView extends StatelessWidget {
     final double itemWidth = size.width / 2;
 
     return DefaultTabController(
-      length: homepageTabs.length,
-      child: Builder(builder: (context) {
-        final TabController tabController = DefaultTabController.of(context)!;
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            return BlocProvider.of<HomepageBloc>(context).add(
-                ChangeTabMangaPage(
-                    tab: HomepageTab.values[tabController.index]));
-          }
-        });
-        return Column(
+        length: homepageTabs.length,
+        child: Column(
           children: [
-            TabBar(tabs: homepageTabs),
+            TabBar(
+              tabs: homepageTabs,
+              onTap: (tabIndex) {
+                BlocProvider.of<HomepageBloc>(context)
+                    .add(ChangeTabMangaPage(tab: HomepageTab.values[tabIndex]));
+              },
+            ),
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -80,9 +77,7 @@ class MangaGridView extends StatelessWidget {
               ),
             ),
           ],
-        );
-      }),
-    );
+        ));
   }
 
   Widget _buildCardView(BuildContext context, MangaInfo info) {
@@ -96,7 +91,10 @@ class MangaGridView extends StatelessWidget {
         );
       case HomepageStatus.success:
         return InkWell(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => MangaInfoPage(info: info)))),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) => MangaInfoPage(info: info)))),
           child: Container(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
