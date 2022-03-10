@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loadany/loadany_widget.dart';
 import 'package:mobile/features/homepage/presentation/bloc/homepage_bloc.dart';
 
+import '../../../manga_info_page/presentation/pages/homePage/homePage.dart';
 import '../../domain/entities/MangaInfo.dart';
 
 class MangaGridView extends StatelessWidget {
@@ -62,7 +63,7 @@ class MangaGridView extends StatelessWidget {
                       SliverGrid(
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return _buildCardView(mangaData[index]);
+                            return _buildCardView(context, mangaData[index]);
                           },
                           childCount: mangaData.length,
                         ),
@@ -84,7 +85,7 @@ class MangaGridView extends StatelessWidget {
     );
   }
 
-  Widget _buildCardView(MangaInfo info) {
+  Widget _buildCardView(BuildContext context, MangaInfo info) {
     switch (status) {
       case HomepageStatus.initial:
         return Center(
@@ -94,29 +95,32 @@ class MangaGridView extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       case HomepageStatus.success:
-        return Container(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Image.network(
-                info.img,
-                headers: {'Referer': 'https://readmanganato.com/'},
-                fit: BoxFit.cover,
+        return InkWell(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => MangaInfoPage(info: info)))),
+          child: Container(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Image.network(
+                  info.img,
+                  headers: {'Referer': 'https://readmanganato.com/'},
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Container(
-              height: 45,
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Text(
-                info.name,
-                style: TextStyle(color: Colors.grey),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            )
-          ],
-        ));
+              Container(
+                height: 45,
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  info.name,
+                  style: TextStyle(color: Colors.grey),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+              )
+            ],
+          )),
+        );
       case HomepageStatus.failure:
         return Center(
             child: Text('error', style: TextStyle(color: Colors.red)));
