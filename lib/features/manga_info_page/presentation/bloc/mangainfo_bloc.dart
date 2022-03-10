@@ -20,7 +20,6 @@ class MangainfoBloc extends Bloc<MangainfoEvent, MangainfoState> {
       emit(state.copyWith(status: MangainfoStateStatus.loading));
 
       final mangaInfo = await getFullMangaInfo(Params(url: event.url));
-
       print(mangaInfo);
       mangaInfo.fold(
           (l) => emit(state.copyWith(status: MangainfoStateStatus.failure)),

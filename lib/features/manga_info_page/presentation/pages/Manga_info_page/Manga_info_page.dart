@@ -4,6 +4,7 @@ import 'package:mobile/core/component/appbar.dart';
 import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
 import 'package:mobile/core/component/navbar/navbar.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
+import 'package:mobile/features/manga_info_page/presentation/pages/Manga_info_page/Manga_info_page_body.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../bloc/mangainfo_bloc.dart';
@@ -22,30 +23,12 @@ class MangaInfoPage extends StatelessWidget {
         return Scaffold(
             appBar: MangaAppBar(title: "Manga Rock"),
             body: BlocProvider(
-              create: (context) => MangainfoBloc(getFullMangaInfo: sl()),
-              child: Body(info: info),
+              create: (context) => MangainfoBloc(getFullMangaInfo: sl())
+                ..add(FetchMangaInfo(url: info.url)),
+              child: MangaInfoPageBody(info: info),
             ),
             bottomNavigationBar: MangaNavbar(index: state.index));
       },
     );
-  }
-}
-
-class Body extends StatelessWidget {
-  const Body({
-    Key? key,
-    required this.info,
-  }) : super(key: key);
-
-  final MangaInfo info;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {
-          BlocProvider.of<MangainfoBloc>(context)
-              .add(FetchMangaInfo(url: info.url));
-        },
-        child: Container(color: Colors.red, height: 100, width: 100));
   }
 }
