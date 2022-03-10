@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loadany/loadany_widget.dart';
 import 'package:mobile/features/homepage/presentation/bloc/homepage_bloc.dart';
 
-import '../../../manga_info_page/presentation/pages/homePage/homePage.dart';
+import '../../../manga_info_page/presentation/pages/Manga_info_page/Manga_info_page.dart';
 import '../../domain/entities/MangaInfo.dart';
 
 class MangaGridView extends StatelessWidget {

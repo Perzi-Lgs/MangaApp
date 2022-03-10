@@ -1,6 +1,5 @@
 import 'package:mobile/features/manga_info_page/data/model/Chapter_model.dart';
 
-import '../../domain/entities/Chapter.dart';
 import '../../domain/entities/CompleteMangaInfo.dart';
 
 class CompleteMangaInfoModel extends CompleteMangaInfo {
@@ -22,18 +21,18 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
             scans: scans);
 
   factory CompleteMangaInfoModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     List<ChapterModel> _chapters =
         (json['scans'] as List).map((e) => ChapterModel.fromJson(e)).toList();
-
-    print(_chapters);
+    
     return CompleteMangaInfoModel(
-      img: json['img'],
-      name: json['name'],
-      author: json['author'],
-      description: json['description'],
-      genre: json['genre'],
+      img: json['img'] ?? '',
+      name: json['name'] ?? '',
+      author: json['author'] ?? '',
+      description: json['description'] ?? '',
+      genre: List.from(json['genre']),
       scans: _chapters,
-      update: json['update'],
+      update: json['update'] ?? '',
     );
   }
 

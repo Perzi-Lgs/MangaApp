@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:mobile/constants/error_message_constant.dart';
 import 'package:mobile/core/errors/exception.dart';

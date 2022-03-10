@@ -1,10 +1,17 @@
 part of 'mangainfo_bloc.dart';
 
-abstract class MangainfoState extends Equatable {
-  const MangainfoState();
+enum MangainfoStateStatus { initial, loading, success, failure }
+class MangainfoState extends Equatable {
+  MangainfoState({this.status = MangainfoStateStatus.initial, CompleteMangaInfo ?info}) : info = info ?? CompleteMangaInfo.empty;
   
-  @override
-  List<Object> get props => [];
-}
+  final MangainfoStateStatus status;
+  final CompleteMangaInfo info;
 
-class MangainfoInitial extends MangainfoState {}
+  MangainfoState copyWith({MangainfoStateStatus? status, CompleteMangaInfo? info}) {
+    return MangainfoState(info: info ?? this.info, status: status ?? this.status);
+  }
+
+  @override
+  List<Object> get props => [status, info];
+
+}
