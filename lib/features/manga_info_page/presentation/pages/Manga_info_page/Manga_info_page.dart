@@ -20,14 +20,11 @@ class MangaInfoPage extends StatelessWidget {
       bloc: context.read<NavbarBloc>(),
       builder: (context, state) {
         print(state.index);
-        return Scaffold(
-            appBar: MangaAppBar(title: "Manga Rock"),
-            body: BlocProvider(
-              create: (context) => MangainfoBloc(getFullMangaInfo: sl())
-                ..add(FetchMangaInfo(url: info.url)),
-              child: MangaInfoPageBody(info: info),
-            ),
-            bottomNavigationBar: MangaNavbar(index: state.index));
+        return BlocProvider(
+          create: (context) => MangainfoBloc(getFullMangaInfo: sl())
+            ..add(FetchMangaInfo(url: info.url)),
+          child: MangaInfoPageBody(info: info),
+        );
       },
     );
   }

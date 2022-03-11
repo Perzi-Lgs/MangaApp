@@ -36,5 +36,9 @@ ThemeData get darkTheme {
           selectedItemColor: CustomColors.mainBlue,
           unselectedItemColor: CustomColors.lightGrey,
           selectedLabelStyle: TextStyle(fontSize: 10),
-          unselectedLabelStyle: TextStyle(fontSize: 10)));
+          unselectedLabelStyle: TextStyle(fontSize: 10)),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(CustomColors.buttonGrey),
+      )));
 }

@@ -9,6 +9,7 @@ class CompleteMangaInfo extends Equatable {
   final String author; //urlimg
   final List<String> genre; //urlimg
   final String update; //urlimg
+  final String status; //urlimg
   final List<Chapter> scans; //urlimg
 
   CompleteMangaInfo(
@@ -18,7 +19,8 @@ class CompleteMangaInfo extends Equatable {
       required this.author,
       required this.genre,
       required this.update,
-      required this.scans, url});
+      required this.scans,
+      required this.status});
 
   static final empty = CompleteMangaInfo(
     img: '',
@@ -28,6 +30,7 @@ class CompleteMangaInfo extends Equatable {
     genre: [],
     scans: [],
     update: '',
+    status: '',
   );
 
   CompleteMangaInfo copyWith({
@@ -37,6 +40,7 @@ class CompleteMangaInfo extends Equatable {
     String? author,
     List<String>? genre,
     String? update,
+    String? status,
     List<Chapter>? scans,
   }) {
     return CompleteMangaInfo(
@@ -46,7 +50,8 @@ class CompleteMangaInfo extends Equatable {
         description: description ?? this.description,
         genre: genre ?? this.genre,
         scans: scans ?? this.scans,
-        update: update ?? this.update);
+        update: update ?? this.update,
+        status: status ?? this.status);
   }
 
   @override
@@ -58,5 +63,6 @@ class CompleteMangaInfo extends Equatable {
         genre,
         scans,
         update,
+        status,
       ];
 }

@@ -10,6 +10,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
     required String author, //urlimg
     required List<String> genre, //urlimg
     required String update, //urlimg
+    required String status, //urlimg
     required List<ChapterModel> scans,
   }) : super(
             img: img,
@@ -18,13 +19,14 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
             author: author,
             genre: genre,
             update: update,
-            scans: scans);
+            scans: scans,
+            status: status);
 
   factory CompleteMangaInfoModel.fromJson(Map<String, dynamic> json) {
     print(json);
     List<ChapterModel> _chapters =
         (json['scans'] as List).map((e) => ChapterModel.fromJson(e)).toList();
-    
+
     return CompleteMangaInfoModel(
       img: json['img'] ?? '',
       name: json['name'] ?? '',
@@ -33,6 +35,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
       genre: List.from(json['genre']),
       scans: _chapters,
       update: json['update'] ?? '',
+      status: json['status'] ?? '',
     );
   }
 
@@ -44,6 +47,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
       'description': description,
       'genre': genre.toString(),
       'update': update,
+      'status': status,
     };
   }
 }

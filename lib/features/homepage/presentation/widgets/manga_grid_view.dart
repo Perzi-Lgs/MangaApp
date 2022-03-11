@@ -91,10 +91,11 @@ class MangaGridView extends StatelessWidget {
         );
       case HomepageStatus.success:
         return InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) => MangaInfoPage(info: info)))),
+          onTap: () => _showSheet(context, info),
+          // onTap: () => Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: ((context) => MangaInfoPage(info: info)))),
           child: Container(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,6 +127,16 @@ class MangaGridView extends StatelessWidget {
         return Center(
             child: Text('error', style: TextStyle(color: Colors.red)));
     }
+  }
+
+  void _showSheet(BuildContext context, MangaInfo info) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // set this to true
+      builder: (_) {
+        return MangaInfoPage(info: info);
+      },
+    );
   }
 
   _getStatusFromState() {
