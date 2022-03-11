@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/theme_config.dart';
 import 'package:mobile/features/manga_info_page/presentation/widgets/genres%20_button_list.dart';
-import 'package:mobile/features/manga_info_page/presentation/widgets/genres_button.dart';
 import 'package:mobile/features/manga_info_page/presentation/widgets/logo_button.dart';
 
 import '../../../../homepage/domain/entities/MangaInfo.dart';
 import '../../bloc/mangainfo_bloc.dart';
+import '../Manga_list_chapters/Manga_list_chapters.dart';
 
 class MangaInfoPageBody extends StatelessWidget {
   const MangaInfoPageBody({
@@ -113,7 +113,11 @@ class MangaInfoPageBody extends StatelessWidget {
                                 ],
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ListChaptersPage(
+                                            info: state.info))),
                                 child: Text(
                                     'Voir les ${state.info.scans.length} chapitres'),
                               ),
@@ -153,7 +157,9 @@ class MangaInfoPageBody extends StatelessWidget {
             },
           );
         else
-          return Container();
+          return Container(
+            color: CustomColors.darkGrey,
+          );
       },
     );
   }
