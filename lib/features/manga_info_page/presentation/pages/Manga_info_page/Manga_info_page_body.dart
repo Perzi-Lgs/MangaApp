@@ -24,6 +24,7 @@ class MangaInfoPageBody extends StatelessWidget {
           return DraggableScrollableSheet(
             expand: false,
             initialChildSize: 1,
+            minChildSize: 0.9,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 color: CustomColors.darkGrey,
