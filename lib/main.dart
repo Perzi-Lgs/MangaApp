@@ -19,6 +19,7 @@ class Manga extends StatelessWidget {
     return BlocProvider(
       create: (context) => NavbarBloc(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         theme: darkTheme,

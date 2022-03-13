@@ -43,36 +43,64 @@ class MangaReaderBody extends StatelessWidget {
     return BlocBuilder<MangareaderBloc, MangareaderState>(
       builder: (context, state) {
         if (state.status == MangareaderStateStatus.success) {
-          return Builder(
-            builder: (context) {
-              return Center(
-                child: PhotoViewGallery.builder(
-                  itemCount: state.images.length,
-                  builder: (context, index) {
-                    return PhotoViewGalleryPageOptions(
-                      imageProvider: Image.network(
-                        state.images[index].imageLink,
-                        headers: {'Referer': 'https://readmanganato.com/'},
-                        fit: BoxFit.cover,
-                      ).image,
-                      // Contained = the smallest possible size to fit one dimension of the screen
-                      minScale: PhotoViewComputedScale.contained * 0.8,
-                      // Covered = the smallest possible size to fit the whole screen
-                      maxScale: PhotoViewComputedScale.covered * 2,
+          if (info.genre.contains('Webtoons')) {
+            return ListView.builder(
+              itemCount: state.images.length,
+              itemBuilder: ((context, index) {
+              return InteractiveViewer(
+                child: Image.network(
+                  state.images[index].imageLink,
+                  headers: {'Referer': 'https://readmanganato.com/'},
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
                     );
                   },
-                  scrollPhysics: BouncingScrollPhysics(),
-                  // Set the background color to the "classic white"
-                  backgroundDecoration: BoxDecoration(
-                    color: Theme.of(context).canvasColor,
-                  ),
-                  // loadingChild: Center(
-                  //   child: CircularProgressIndicator(),
-                  // ),
+                  errorBuilder: (BuildContext ctx, Object obj, StackTrace? stk) {
+                    return Center(child: CircularProgressIndicator(color: Colors.red,));
+                  },
                 ),
               );
-            },
-          );
+            }));
+          } else
+            return Builder(
+              builder: (context) {
+                return Center(
+                  child: PhotoViewGallery.builder(
+                    itemCount: state.images.length,
+                    builder: (context, index) {
+                      return PhotoViewGalleryPageOptions(
+                        imageProvider: Image.network(
+                          state.images[index].imageLink,
+                          headers: {'Referer': 'https://readmanganato.com/'},
+                          fit: BoxFit.cover,
+                        ).image,
+                        // Contained = the smallest possible size to fit one dimension of the screen
+                        minScale: PhotoViewComputedScale.contained * 0.8,
+                        // Covered = the smallest possible size to fit the whole screen
+                        maxScale: PhotoViewComputedScale.covered * 2,
+                      );
+                    },
+                    scrollPhysics: BouncingScrollPhysics(),
+                    // Set the background color to the "classic white"
+                    backgroundDecoration: BoxDecoration(
+                      color: Theme.of(context).canvasColor,
+                    ),
+                    // loadingChild: Center(
+                    //   child: CircularProgressIndicator(),
+                    // ),
+                  ),
+                );
+              },
+            );
         } else {
           return Container();
         }
