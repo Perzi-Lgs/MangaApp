@@ -38,6 +38,7 @@ dependencies:
   loadany: ^1.0.0
   carousel_slider: ^4.0.0
   photo_view: ^0.13.0
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   bloc_test: ^9.0.2
@@ -45,6 +46,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.0.14  
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.jpg"
 
 flutter:
 
