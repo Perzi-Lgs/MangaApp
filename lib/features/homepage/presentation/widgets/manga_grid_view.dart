@@ -92,10 +92,6 @@ class MangaGridView extends StatelessWidget {
       case HomepageStatus.success:
         return InkWell(
           onTap: () => _showSheet(context, info),
-          // onTap: () => Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: ((context) => MangaInfoPage(info: info)))),
           child: Container(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

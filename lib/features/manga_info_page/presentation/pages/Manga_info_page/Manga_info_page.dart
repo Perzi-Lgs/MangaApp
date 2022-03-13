@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/core/component/appbar.dart';
 import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
-import 'package:mobile/core/component/navbar/navbar.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/manga_info_page/presentation/pages/Manga_info_page/Manga_info_page_body.dart';
 

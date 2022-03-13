@@ -36,6 +36,8 @@ dependencies:
   equatable: ^2.0.3
   cupertino_icons: ^1.0.2
   loadany: ^1.0.0
+  carousel_slider: ^4.0.0
+  photo_view: ^0.13.0
 
 dev_dependencies:
   bloc_test: ^9.0.2
