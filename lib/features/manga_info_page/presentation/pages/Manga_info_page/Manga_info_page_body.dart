@@ -6,6 +6,10 @@ import 'package:mobile/features/manga_info_page/presentation/widgets/logo_button
 
 import '../../../../homepage/domain/entities/MangaInfo.dart';
 import '../../bloc/mangainfo_bloc.dart';
+import '../../widgets/manga_info_divider.dart';
+import '../../widgets/manga_info_list_chapter_button.dart';
+import '../../widgets/manga_info_page_selector.dart';
+import '../../widgets/manga_info_summary.dart';
 import '../Manga_list_chapters/Manga_list_chapters.dart';
 
 class MangaInfoPageBody extends StatelessWidget {
@@ -30,128 +34,7 @@ class MangaInfoPageBody extends StatelessWidget {
                 color: CustomColors.darkGrey,
                 child: SingleChildScrollView(
                   controller: scrollController,
-                  child: Column(
-                    children: [
-                      Image.network(
-                        state.info.img,
-                        headers: {'Referer': 'https://readmanganato.com/'},
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Text(
-                          state.info.name,
-                          style: TextStyle(color: Colors.grey),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Text(
-                          state.info.author + ' · ' + state.info.status,
-                          style: TextStyle(color: Colors.grey),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            LogoButton(
-                                title: 'Reprendre',
-                                icon: Icons.play_arrow_outlined),
-                            VerticalDivider(
-                              width: 10,
-                              thickness: 1,
-                              color: CustomColors.lightGrey,
-                            ),
-                            LogoButton(
-                                title: state.info.scans.length.toString() +
-                                    ' Chapitres',
-                                icon: Icons.list),
-                            VerticalDivider(
-                              width: 20,
-                              thickness: 1,
-                              color: CustomColors.lightGrey,
-                            ),
-                            LogoButton(
-                                title: 'Ajoute aux favoris',
-                                icon: Icons.favorite),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.black,
-                        height: 60,
-                        thickness: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Chapitres',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10),
-                                        child:
-                                            Icon(Icons.file_download_outlined),
-                                      ),
-                                      Icon(Icons.more_horiz)
-                                    ],
-                                  )
-                                ],
-                              ),
-                              TextButton(
-                                onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ListChaptersPage(
-                                            info: state.info))),
-                                child: Text(
-                                    'Voir les ${state.info.scans.length} chapitres'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.black,
-                        height: 60,
-                        thickness: 20,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Sommaire',
-                                style: Theme.of(context).textTheme.headline2),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text(
-                                state.info.description,
-                                style: TextStyle(color: CustomColors.lightGrey),
-                                maxLines: 10,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            GenreButtonlist(genres: state.info.genre)
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                  child: MangaInfoPageData(state: state),
                 ),
               );
             },
@@ -161,6 +44,51 @@ class MangaInfoPageBody extends StatelessWidget {
             color: CustomColors.darkGrey,
           );
       },
+    );
+  }
+}
+
+class MangaInfoPageData extends StatelessWidget {
+  const MangaInfoPageData({
+    required this.state,
+    Key? key,
+  }) : super(key: key);
+
+  final MangainfoState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.network(
+          state.info.img,
+          headers: {'Referer': 'https://readmanganato.com/'},
+          fit: BoxFit.cover,
+        ),
+        // Manga name
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Text(
+            state.info.name,
+            style: TextStyle(color: Colors.grey),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        // Manga author name + status
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Text(
+            state.info.author + ' · ' + state.info.status,
+            style: TextStyle(color: Colors.grey),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        MangaInfoPageSelector(state: state),
+        MangaInfoDivider(),
+        MangaInfoListChapterButton(state: state),
+        MangaInfoDivider(),
+        SummaryMangaInfo(state: state)
+      ],
     );
   }
 }
