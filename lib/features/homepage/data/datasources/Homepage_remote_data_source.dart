@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:mobile/constants/error_message_constant.dart';
 import 'package:mobile/core/errors/exception.dart';
@@ -51,7 +50,7 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
 
     try {
       response = await client.get(
-        Uri.http('35.180.133.199', route, {'page': page.toString()}),
+        Uri.http('35.180.230.94', route, {'page': page.toString()}),
         headers: {
           'Content-Type': 'application/json',
           // 'Authorization': 'token a recup'

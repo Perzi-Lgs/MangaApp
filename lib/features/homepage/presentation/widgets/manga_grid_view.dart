@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loadany/loadany_widget.dart';
 import 'package:mobile/features/homepage/presentation/bloc/homepage_bloc.dart';
 
+import '../../../manga_info_page/presentation/pages/Manga_info_page/Manga_info_page.dart';
 import '../../domain/entities/MangaInfo.dart';
 
 class MangaGridView extends StatelessWidget {
@@ -31,19 +32,16 @@ class MangaGridView extends StatelessWidget {
     final double itemWidth = size.width / 2;
 
     return DefaultTabController(
-      length: homepageTabs.length,
-      child: Builder(builder: (context) {
-        final TabController tabController = DefaultTabController.of(context)!;
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            return BlocProvider.of<HomepageBloc>(context).add(
-                ChangeTabMangaPage(
-                    tab: HomepageTab.values[tabController.index]));
-          }
-        });
-        return Column(
+        length: homepageTabs.length,
+        child: Column(
           children: [
-            TabBar(tabs: homepageTabs),
+            TabBar(
+              tabs: homepageTabs,
+              onTap: (tabIndex) {
+                BlocProvider.of<HomepageBloc>(context)
+                    .add(ChangeTabMangaPage(tab: HomepageTab.values[tabIndex]));
+              },
+            ),
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -62,7 +60,7 @@ class MangaGridView extends StatelessWidget {
                       SliverGrid(
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return _buildCardView(mangaData[index]);
+                            return _buildCardView(context, mangaData[index]);
                           },
                           childCount: mangaData.length,
                         ),
@@ -79,12 +77,10 @@ class MangaGridView extends StatelessWidget {
               ),
             ),
           ],
-        );
-      }),
-    );
+        ));
   }
 
-  Widget _buildCardView(MangaInfo info) {
+  Widget _buildCardView(BuildContext context, MangaInfo info) {
     switch (status) {
       case HomepageStatus.initial:
         return Center(
@@ -94,29 +90,32 @@ class MangaGridView extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       case HomepageStatus.success:
-        return Container(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Image.network(
-                info.img,
-                headers: {'Referer': 'https://readmanganato.com/'},
-                fit: BoxFit.cover,
+        return InkWell(
+          onTap: () => _showSheet(context, info),
+          child: Container(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Image.network(
+                  info.img,
+                  headers: {'Referer': 'https://readmanganato.com/'},
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Container(
-              height: 45,
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Text(
-                info.name,
-                style: TextStyle(color: Colors.grey),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            )
-          ],
-        ));
+              Container(
+                height: 45,
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  info.name,
+                  style: TextStyle(color: Colors.grey),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+              )
+            ],
+          )),
+        );
       case HomepageStatus.failure:
         return Center(
             child: Text('error', style: TextStyle(color: Colors.red)));
@@ -124,6 +123,16 @@ class MangaGridView extends StatelessWidget {
         return Center(
             child: Text('error', style: TextStyle(color: Colors.red)));
     }
+  }
+
+  void _showSheet(BuildContext context, MangaInfo info) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // set this to true
+      builder: (_) {
+        return MangaInfoPage(info: info);
+      },
+    );
   }
 
   _getStatusFromState() {
