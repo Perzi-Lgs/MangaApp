@@ -4,6 +4,7 @@ import 'package:mobile/config/themes/theme_config.dart';
 ThemeData get darkTheme {
   return ThemeData(
       primaryColor: CustomColors.darkGrey,
+      secondaryHeaderColor: CustomColors.white,
       iconTheme: IconThemeData(color: CustomColors.mainBlue),
       scaffoldBackgroundColor: Colors.black,
       fontFamily: 'Roboto',
@@ -22,6 +23,14 @@ ThemeData get darkTheme {
             color: CustomColors.white,
             fontSize: 10,
             fontWeight: FontWeight.w300),
+        bodyText2: TextStyle(
+            color: CustomColors.lightGrey,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        headline3: TextStyle(
+            color: CustomColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
       ),
       buttonTheme: ButtonThemeData(
         shape:

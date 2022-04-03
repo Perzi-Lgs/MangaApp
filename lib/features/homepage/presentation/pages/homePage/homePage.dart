@@ -13,12 +13,10 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<NavbarBloc, NavbarState>(
       bloc: context.read<NavbarBloc>(),
       builder: (context, state) {
-        print(state.index);
         return Scaffold(
-          appBar: MangaAppBar(title: "Manga Rock"),
-          body: HomePageBody(),
-          bottomNavigationBar: MangaNavbar(index: state.index)
-        );
+            appBar: MangaAppBar(title: "Manga Rock"),
+            body: HomePageBody(),
+            bottomNavigationBar: MangaNavbar(index: state.index));
       },
     );
   }

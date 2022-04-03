@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/domain/usecases/get_homepage_scans.dart';
 
@@ -22,7 +21,8 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     try {
       emit(state.copyWith(status: HomepageStatus.loading));
 
-      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(state.tab)));
+      final scansHomePage =
+          await getHomepageScans(Params(route: _tabsConverter(state.tab)));
       scansHomePage.fold(
           (l) => emit(state.copyWith(status: HomepageStatus.failure)),
           (r) =>
@@ -38,7 +38,8 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     if (state.infos == List.empty()) return;
 
     try {
-      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(state.tab)));
+      final scansHomePage =
+          await getHomepageScans(Params(route: _tabsConverter(state.tab)));
       scansHomePage.fold(
           (l) => emit(state.copyWith(status: HomepageStatus.failure)),
           (r) =>
@@ -48,12 +49,14 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     }
   }
 
-  void _onChangeTab(ChangeTabMangaPage event, Emitter<HomepageState> emit) async {
+  void _onChangeTab(
+      ChangeTabMangaPage event, Emitter<HomepageState> emit) async {
     emit(state.copyWith(tab: event.tab));
     try {
       emit(state.copyWith(status: HomepageStatus.loading));
 
-      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(event.tab)));
+      final scansHomePage =
+          await getHomepageScans(Params(route: _tabsConverter(event.tab)));
       scansHomePage.fold(
           (l) => emit(state.copyWith(status: HomepageStatus.failure)),
           (r) =>
@@ -68,11 +71,15 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     for (var i = state.page + 1; i <= state.page + event.numberPage; i++) {
       print(state.page);
       print(event.numberPage);
-      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(state.tab), page: i));
-      scansHomePage.fold((l) => emit(state.copyWith(status: HomepageStatus.failure)), (r) => state.infos.addAll(r));
+      final scansHomePage = await getHomepageScans(
+          Params(route: _tabsConverter(state.tab), page: i));
+      scansHomePage.fold(
+          (l) => emit(state.copyWith(status: HomepageStatus.failure)),
+          (r) => state.infos.addAll(r));
     }
     print(state.infos.length);
-    emit(state.copyWith(page: state.page + event.numberPage, status: HomepageStatus.success));
+    emit(state.copyWith(
+        page: state.page + event.numberPage, status: HomepageStatus.success));
   }
 
   String _tabsConverter(HomepageTab tab) {
