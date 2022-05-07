@@ -27,7 +27,7 @@ dependencies:
   get_it: ^7.2.0
   dartz: ^0.10.1
   connectivity: ^3.0.6
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.13
   cron: ^0.4.0
   internet_connection_checker: ^0.0.1+2
   http: ^0.13.3

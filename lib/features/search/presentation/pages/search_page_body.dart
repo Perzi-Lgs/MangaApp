@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loadany/loadany.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:mobile/config/themes/theme_config.dart';
-import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
 import 'package:mobile/features/homepage/presentation/widgets/manga_grid_data.dart';
 import 'package:mobile/features/search/presentation/bloc/search_bloc.dart';
-import 'package:mobile/features/search/presentation/pages/search_page.dart';
 
 class NewWidget extends StatelessWidget {
   const NewWidget({
@@ -18,6 +14,7 @@ class NewWidget extends StatelessWidget {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         return FloatingSearchAppBar(
+          autocorrect: true,
           color: Theme.of(context).primaryColor,
           hintStyle: Theme.of(context).textTheme.bodyText2,
           iconColor: Theme.of(context).secondaryHeaderColor,
@@ -26,6 +23,7 @@ class NewWidget extends StatelessWidget {
           actions: [
             FloatingSearchBarAction.searchToClear(),
           ],
+          debounceDelay: const Duration(milliseconds: 500),
           onQueryChanged: (String query) {
             BlocProvider.of<SearchBloc>(context).add(Research(keyword: query));
           },

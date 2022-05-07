@@ -15,3 +15,16 @@ class Research extends SearchEvent {
   @override
   List<Object> get props => [keyword];
 }
+
+class GetHistory extends SearchEvent {
+  const GetHistory();
+}
+
+class DeleteHistory extends SearchEvent {
+  final String query;
+
+  DeleteHistory({required this.query});
+
+  @override
+  List<Object> get props => [query];
+}

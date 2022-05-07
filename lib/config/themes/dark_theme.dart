@@ -8,6 +8,15 @@ ThemeData get darkTheme {
       iconTheme: IconThemeData(color: CustomColors.mainBlue),
       scaffoldBackgroundColor: Colors.black,
       fontFamily: 'Roboto',
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+            color: CustomColors.lightGrey,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        filled: true,
+        fillColor: CustomColors.darkGrey,
+        iconColor: CustomColors.white,
+      ),
       textTheme: const TextTheme(
         headline1: TextStyle(
           color: CustomColors.white,

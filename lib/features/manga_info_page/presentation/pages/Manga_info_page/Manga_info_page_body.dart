@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/theme_config.dart';
-import 'package:mobile/features/manga_info_page/presentation/widgets/genres%20_button_list.dart';
-import 'package:mobile/features/manga_info_page/presentation/widgets/logo_button.dart';
 
 import '../../../../homepage/domain/entities/MangaInfo.dart';
 import '../../bloc/mangainfo_bloc.dart';
@@ -10,7 +8,6 @@ import '../../widgets/manga_info_divider.dart';
 import '../../widgets/manga_info_list_chapter_button.dart';
 import '../../widgets/manga_info_page_selector.dart';
 import '../../widgets/manga_info_summary.dart';
-import '../Manga_list_chapters/Manga_list_chapters.dart';
 
 class MangaInfoPageBody extends StatelessWidget {
   const MangaInfoPageBody({

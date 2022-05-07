@@ -13,21 +13,28 @@ class SearchState extends Equatable {
   SearchState(
       {this.status = SearchStatus.initial,
       this.page = 1,
-      List<MangaInfo>? infos})
-      : infos = infos ?? [];
+      List<MangaInfo>? infos,
+      List<String>? history})
+      : infos = infos ?? [],
+        history = history ?? [];
 
   final SearchStatus status;
   final List<MangaInfo> infos;
+  final List<String> history;
   final int page;
 
   SearchState copyWith(
-      {SearchStatus? status, List<MangaInfo>? infos, int? page}) {
+      {SearchStatus? status,
+      List<MangaInfo>? infos,
+      int? page,
+      List<String>? history}) {
     return SearchState(
         infos: infos ?? this.infos,
         status: status ?? this.status,
-        page: page ?? this.page);
+        page: page ?? this.page,
+        history: history ?? this.history);
   }
 
   @override
-  List<Object> get props => [page, infos, status];
+  List<Object> get props => [page, infos, status, history];
 }
