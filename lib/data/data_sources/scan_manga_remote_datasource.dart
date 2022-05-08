@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import '../../constants/error_message_constant.dart';
 import '../../core/errors/exception.dart';
-import '../model/ScanImageModel.dart';
+import '../model/scan_image_model.dart';
 import 'package:http/http.dart' as http;
 
 

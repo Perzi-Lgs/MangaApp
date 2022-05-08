@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/data/model/Manga_info_model.dart';
-import 'package:mobile/domain/entities/MangaInfo.dart';
+import 'package:mobile/data/model/manga_info_model.dart';
+import 'package:mobile/domain/entities/manga_info.dart';
 
 import '../../../fixtures/fixtures_reader.dart';
 

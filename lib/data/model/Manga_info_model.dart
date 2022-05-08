@@ -1,4 +1,4 @@
-import '../../domain/entities/MangaInfo.dart';
+import '../../domain/entities/manga_info.dart';
 
 class MangaInfoModel extends MangaInfo {
   MangaInfoModel({

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../domain/entities/ScanImage.dart';
+import '../../../domain/entities/scan_image.dart';
 import '../../../../domain/usecases/get_manga_scan.dart';
 
 part 'mangareader_event.dart';

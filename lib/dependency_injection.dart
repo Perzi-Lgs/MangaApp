@@ -1,20 +1,20 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile/data/datasources/Manga_info_page_remote_data_source.dart';
+import 'package:mobile/data/data_sources/manga_info_page_remote_data_source.dart';
 import 'package:mobile/domain/usecases/get_manga_full_info.dart';
-import 'package:mobile/domain/repositories/research_repository.dart';
+import 'package:mobile/domain/repositories/search_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/network.dart';
-import 'data/datasources/Homepage_remote_data_source.dart';
-import 'data/datasources/search_datasources/research_local_datasource.dart';
-import 'data/datasources/search_datasources/research_remote_datasource.dart';
-import 'data/repositories/HomePage_repository_impl.dart';
-import 'data/repositories/Manga_info_page_repository_impl.dart';
-import 'domain/repositories/HomePage_repository.dart';
+import 'data/data_sources/homepage_remote_data_source.dart';
+import 'data/data_sources/search_data_sources/search_local_datasource.dart';
+import 'data/data_sources/search_data_sources/search_remote_datasource.dart';
+import 'data/repositories/homepage_repository_impl.dart';
+import 'data/repositories/manga_info_page_repository_impl.dart';
+import 'domain/repositories/homepage_repository.dart';
 import 'domain/repositories/manga_info_repository.dart';
-import 'data/datasources/scan_manga_remote_datasource.dart';
+import 'data/data_sources/scan_manga_remote_datasource.dart';
 import 'data/repositories/scan_manga_repository_impl.dart';
 import 'domain/repositories/scan_manga_repository.dart';
 import 'domain/usecases/delete_search_in_history.dart';
@@ -22,8 +22,8 @@ import 'domain/usecases/get_homepage_scans.dart';
 import 'domain/usecases/get_list_manga_per_sources.dart';
 import 'domain/usecases/get_manga_scan.dart';
 import 'data/repositories/research_repository_impl.dart';
-import 'domain/usecases/get_research_manga copy.dart';
-import 'domain/usecases/get_research_manga.dart';
+import 'domain/usecases/get_search_manga.dart';
+import 'domain/usecases/get_search_manga_history.dart';
 import 'presentation/bloc/homepage_bloc/homepage_bloc.dart';
 import 'presentation/bloc/manga_info_bloc/manga_info_bloc.dart';
 import 'presentation/bloc/manga_reader_bloc/mangareader_bloc.dart';
@@ -45,9 +45,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetListMangaPerSource(sl()));
   sl.registerLazySingleton(() => GetFullMangaInfo(sl()));
   sl.registerLazySingleton(() => GetMangaScan(sl()));
-  sl.registerLazySingleton(() => GetResearchScans(sl()));
+  sl.registerLazySingleton(() => GetSearchScans(sl()));
   sl.registerLazySingleton(() => DeleteSearchInHistory(sl()));
-  sl.registerLazySingleton(() => GetResearchHistory(sl()));
+  sl.registerLazySingleton(() => GetSearchHistory(sl()));
 
   //repository
   sl.registerLazySingleton<HomePageRepository>(
@@ -56,7 +56,7 @@ Future<void> init() async {
       MangaInfoPageRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<ScanMangaRepository>(
       () => ScanMangaRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<ResearchRepository>(() => ResearchRepositoryImpl(
+  sl.registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl(
       remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
 
   //Data Sources
@@ -66,10 +66,10 @@ Future<void> init() async {
       () => MangaInfoPageRemoteDatasourceImpl(client: sl()));
   sl.registerLazySingleton<ScanMangaRemoteDatasource>(
       () => ScanMangaRemoteDatasourceImpl(client: sl()));
-  sl.registerLazySingleton<ResearchRemoteDataSource>(
-      () => ResearchRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton<ResearchLocalDataSource>(
-      () => ResearchLocalDataSourceImpl(sharedPreferences: sl()));
+  sl.registerLazySingleton<SearchRemoteDataSource>(
+      () => SearchRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<SearchLocalDataSource>(
+      () => SearchLocalDataSourceImpl(sharedPreferences: sl()));
 
   //Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

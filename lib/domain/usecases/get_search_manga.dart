@@ -3,17 +3,17 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases.dart';
-import '../../../../domain/repositories/research_repository.dart';
-import '../entities/MangaInfo.dart';
+import '../repositories/search_repository.dart';
+import '../entities/manga_info.dart';
 
-class GetResearchScans extends UseCase<List<MangaInfo>, Params> {
-  final ResearchRepository repository;
+class GetSearchScans extends UseCase<List<MangaInfo>, Params> {
+  final SearchRepository repository;
 
-  GetResearchScans(this.repository);
+  GetSearchScans(this.repository);
 
   @override
   Future<Either<Failure, List<MangaInfo>>> call(Params? params) async {
-    return await repository.getResearchScans(params!.query, params.page);
+    return await repository.getSearchScans(params!.query, params.page);
   }
 }
 

@@ -2,17 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobile/core/usecases.dart';
 
-import '../../../domain/entities/MangaInfo.dart';
+import '../../../domain/entities/manga_info.dart';
 import '../../../domain/usecases/delete_search_in_history.dart';
-import '../../../domain/usecases/get_research_manga copy.dart';
-import '../../../domain/usecases/get_research_manga.dart';
+import '../../../domain/usecases/get_search_manga.dart';
+import '../../../domain/usecases/get_search_manga_history.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final GetResearchScans getResearchScans;
-  final GetResearchHistory getResearchHistory;
+  final GetSearchScans getResearchScans;
+  final GetSearchHistory getResearchHistory;
   final DeleteSearchInHistory deleteSearchInHistory;
 
   SearchBloc(

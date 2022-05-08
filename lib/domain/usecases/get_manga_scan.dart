@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../core/errors/failures.dart';
 import '../../core/usecases.dart';
-import '../entities/ScanImage.dart';
+import '../entities/scan_image.dart';
 import '../repositories/scan_manga_repository.dart';
 
 class GetMangaScan extends UseCase<List<ScanImage>, Params> {

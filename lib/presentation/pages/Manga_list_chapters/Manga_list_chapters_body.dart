@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../config/themes/theme_config.dart';
-import '../../../domain/entities/CompleteMangaInfo.dart';
+import '../../../domain/entities/complete_manga_info.dart';
 import '../manga_reader/manga_reader_page.dart';
 
 class ListChaptersPageBody extends StatelessWidget {

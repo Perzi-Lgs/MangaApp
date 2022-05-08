@@ -1,31 +1,31 @@
 import 'package:mobile/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mobile/domain/repositories/research_repository.dart';
+import 'package:mobile/domain/repositories/search_repository.dart';
 
 import '../../constants/error_message_constant.dart';
 import '../../core/errors/exception.dart';
 import '../../core/network.dart';
-import '../../domain/entities/MangaInfo.dart';
-import '../datasources/search_datasources/research_local_datasource.dart';
-import '../datasources/search_datasources/research_remote_datasource.dart';
+import '../../domain/entities/manga_info.dart';
+import '../data_sources/search_data_sources/search_local_datasource.dart';
+import '../data_sources/search_data_sources/search_remote_datasource.dart';
 
-class ResearchRepositoryImpl implements ResearchRepository {
-  final ResearchRemoteDataSource remoteDataSource;
-  final ResearchLocalDataSource localDataSource;
+class SearchRepositoryImpl implements SearchRepository {
+  final SearchRemoteDataSource remoteDataSource;
+  final SearchLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
-  ResearchRepositoryImpl(
+  SearchRepositoryImpl(
       {required this.localDataSource,
       required this.remoteDataSource,
       required this.networkInfo});
 
   // TODO impl avec cache
   @override
-  Future<Either<Failure, List<MangaInfo>>> getResearchScans(
+  Future<Either<Failure, List<MangaInfo>>> getSearchScans(
       String query, int page) async {
     if (await networkInfo.isConnected) {
       try {
-        final mangaList = await remoteDataSource.getResearchScans(query, page);
+        final mangaList = await remoteDataSource.getSearchScans(query, page);
 
         List<String> history = await localDataSource.getSearchHistory();
         history.remove(query);

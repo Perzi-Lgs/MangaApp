@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entities/MangaInfo.dart';
+import '../../../domain/entities/manga_info.dart';
 import '../../../domain/usecases/get_homepage_scans.dart';
 
 part 'homepage_event.dart';

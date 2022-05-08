@@ -4,9 +4,9 @@ import '../../core/network.dart';
 import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../domain/entities/MangaInfo.dart';
-import '../../domain/repositories/HomePage_repository.dart';
-import '../datasources/Homepage_remote_data_source.dart';
+import '../../domain/entities/manga_info.dart';
+import '../../domain/repositories/homepage_repository.dart';
+import '../data_sources/homepage_remote_data_source.dart';
 
 class HomePageRepositoryImpl implements HomePageRepository {
   final HomepageRemoteDataSource remoteDataSource;
@@ -20,7 +20,8 @@ class HomePageRepositoryImpl implements HomePageRepository {
       String sourceName) async {
     if (await networkInfo.isConnected) {
       try {
-        final mangaList = await remoteDataSource.getListMangaInfoPerSource(sourceName);
+        final mangaList =
+            await remoteDataSource.getListMangaInfoPerSource(sourceName);
         return Right(mangaList);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));
@@ -31,10 +32,12 @@ class HomePageRepositoryImpl implements HomePageRepository {
   }
 
   @override
-  Future<Either<Failure, List<MangaInfo>>> getHomepageScans(String route, int page) async {
+  Future<Either<Failure, List<MangaInfo>>> getHomepageScans(
+      String route, int page) async {
     if (await networkInfo.isConnected) {
       try {
-        final homePageManga = await remoteDataSource.getHomepageScans('/' + route, page);
+        final homePageManga =
+            await remoteDataSource.getHomepageScans('/' + route, page);
         return Right(homePageManga);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));

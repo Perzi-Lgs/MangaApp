@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases.dart';
-import '../../../../domain/repositories/research_repository.dart';
+import '../repositories/search_repository.dart';
 
 class DeleteSearchInHistory extends UseCase<List<String>, DeleteSearchInHistoryParams> {
-  final ResearchRepository repository;
+  final SearchRepository repository;
 
   DeleteSearchInHistory(this.repository);
 

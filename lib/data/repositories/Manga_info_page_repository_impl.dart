@@ -4,9 +4,9 @@ import '../../core/network.dart';
 import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../domain/entities/CompleteMangaInfo.dart';
+import '../../domain/entities/complete_manga_info.dart';
 import '../../domain/repositories/manga_info_repository.dart';
-import '../datasources/Manga_info_page_remote_data_source.dart';
+import '../data_sources/manga_info_page_remote_data_source.dart';
 
 class MangaInfoPageRepositoryImpl implements MangaInfoPageRepository {
   final MangaInfoPageRemoteDatasource remoteDataSource;

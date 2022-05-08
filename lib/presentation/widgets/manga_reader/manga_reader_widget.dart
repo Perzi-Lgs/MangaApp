@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../../../../domain/entities/ScanImage.dart';
+import '../../../domain/entities/scan_image.dart';
 
 class MangaReader extends StatelessWidget {
   const MangaReader({

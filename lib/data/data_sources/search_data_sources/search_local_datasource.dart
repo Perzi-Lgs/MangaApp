@@ -1,16 +1,16 @@
 import '../../../core/errors/exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ResearchLocalDataSource {
+abstract class SearchLocalDataSource {
   Future<bool> saveSearchHistory(List<String> queries);
   Future<List<String>> deleteSearchInHistory(String queries);
   Future<List<String>> getSearchHistory();
 }
 
-class ResearchLocalDataSourceImpl implements ResearchLocalDataSource {
+class SearchLocalDataSourceImpl implements SearchLocalDataSource {
   final SharedPreferences sharedPreferences;
 
-  ResearchLocalDataSourceImpl({required this.sharedPreferences});
+  SearchLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<List<String>> getSearchHistory() async {

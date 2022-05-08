@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/component/appbar.dart';
 
 import '../../../../dependency_injection.dart';
-import '../../../domain/entities/CompleteMangaInfo.dart';
+import '../../../domain/entities/complete_manga_info.dart';
 import '../../bloc/manga_reader_bloc/mangareader_bloc.dart';
 import 'manga_reader_page_body.dart';
 

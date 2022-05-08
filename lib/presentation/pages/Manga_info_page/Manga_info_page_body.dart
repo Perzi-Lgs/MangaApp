@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/theme_config.dart';
 
-import '../../../domain/entities/MangaInfo.dart';
+import '../../../domain/entities/manga_info.dart';
 import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import '../../widgets/manga_info/manga_info_divider.dart';
 import '../../widgets/manga_info/manga_info_list_chapter_button.dart';

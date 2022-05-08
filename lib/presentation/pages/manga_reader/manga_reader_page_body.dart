@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/CompleteMangaInfo.dart';
+import '../../../domain/entities/complete_manga_info.dart';
 import '../../bloc/manga_reader_bloc/mangareader_bloc.dart';
 import '../../widgets/manga_reader/manga_reader_widget.dart';
 import '../../widgets/manga_reader/webtoon_reader_widget.dart';

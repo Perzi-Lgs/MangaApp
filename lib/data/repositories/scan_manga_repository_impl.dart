@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:mobile/domain/entities/ScanImage.dart';
+import 'package:mobile/domain/entities/scan_image.dart';
 
 import '../../constants/error_message_constant.dart';
 import '../../core/errors/exception.dart';
 import '../../core/errors/failures.dart';
 import '../../core/network.dart';
 import '../../domain/repositories/scan_manga_repository.dart';
-import '../datasources/scan_manga_remote_datasource.dart';
+import '../data_sources/scan_manga_remote_datasource.dart';
 
 class ScanMangaRepositoryImpl implements ScanMangaRepository {
   final ScanMangaRemoteDatasource remoteDataSource;

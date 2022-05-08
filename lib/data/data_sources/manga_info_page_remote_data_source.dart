@@ -4,7 +4,7 @@ import '../../constants/error_message_constant.dart';
 import '../../core/errors/exception.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/Complete_manga_info_model.dart';
+import '../model/complete_manga_info_model.dart';
 
 abstract class MangaInfoPageRemoteDatasource {
   Future<CompleteMangaInfoModel> getMangaInfoPage(String url);

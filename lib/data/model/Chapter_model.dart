@@ -1,4 +1,4 @@
-import '../../domain/entities/Chapter.dart';
+import '../../domain/entities/chapter.dart';
 
 class ChapterModel extends Chapter {
   ChapterModel({required name, required url}) : super(name: name, url: url);

@@ -1,5 +1,5 @@
-import '../../domain/entities/CompleteMangaInfo.dart';
-import 'Chapter_model.dart';
+import '../../domain/entities/complete_manga_info.dart';
+import 'chapter_model.dart';
 
 class CompleteMangaInfoModel extends CompleteMangaInfo {
   CompleteMangaInfoModel({

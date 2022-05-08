@@ -4,14 +4,14 @@ import 'package:mobile/constants/error_message_constant.dart';
 import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/core/errors/failures.dart';
 import 'package:mobile/core/network.dart';
-import 'package:mobile/data/datasources/Homepage_remote_data_source.dart';
-import 'package:mobile/data/model/Manga_info_model.dart';
-import 'package:mobile/data/repositories/HomePage_repository_impl.dart';
-import 'package:mobile/domain/repositories/HomePage_repository.dart';
+import 'package:mobile/data/data_sources/homepage_remote_data_source.dart';
+import 'package:mobile/data/model/manga_info_model.dart';
+import 'package:mobile/data/repositories/homepage_repository_impl.dart';
+import 'package:mobile/domain/repositories/homepage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'Homepage_repository_impl_test.mocks.dart';
+import 'homepage_repository_impl_test.mocks.dart';
 
 class THomepageRemoteDataSource extends Mock
     implements HomepageRemoteDataSource {}
@@ -35,10 +35,8 @@ main() {
   });
 
   final tMangaInfoModel = MangaInfoModel(
-      img: "testurlCover",
-      url: 'testUrlchapter',
-      name: 'testUrlname');
-  
+      img: "testurlCover", url: 'testUrlchapter', name: 'testUrlname');
+
   test('Should be a subclass HomePageRepository', () {
     expect(repository, isA<HomePageRepository>());
   });
@@ -83,18 +81,18 @@ main() {
     );
   });
 
-    group('Device offline', () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected)
-            .thenAnswer((realInvocation) => Future.value(false));
-      });
-
-      test('Should return a ServerFailure when the GET is not successful',
-          () async {
-        when(mockRemoteDataSource.getHomepageScans(any, any))
-            .thenThrow(ServerException(timeoutServerError));
-        final result = await repository.getHomepageScans('/home', 1);
-        expect(result, Left(ServerFailure(timeoutServerError)));
-      });
+  group('Device offline', () {
+    setUp(() {
+      when(mockNetworkInfo.isConnected)
+          .thenAnswer((realInvocation) => Future.value(false));
     });
+
+    test('Should return a ServerFailure when the GET is not successful',
+        () async {
+      when(mockRemoteDataSource.getHomepageScans(any, any))
+          .thenThrow(ServerException(timeoutServerError));
+      final result = await repository.getHomepageScans('/home', 1);
+      expect(result, Left(ServerFailure(timeoutServerError)));
+    });
+  });
 }

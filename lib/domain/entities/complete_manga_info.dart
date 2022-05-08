@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'Chapter.dart';
+import 'chapter.dart';
 
 class CompleteMangaInfo extends Equatable {
   final String img; //urlimg

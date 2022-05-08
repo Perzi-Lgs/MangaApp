@@ -1,4 +1,4 @@
-import '../../domain/entities/ScanImage.dart';
+import '../../domain/entities/scan_image.dart';
 
 class ScanImageModel extends ScanImage {
   ScanImageModel({required String name, required String imageLink})

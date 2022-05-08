@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/usecases/get_manga_full_info.dart';
-import '../../../domain/entities/CompleteMangaInfo.dart';
+import '../../../domain/entities/complete_manga_info.dart';
 
 part 'manga_info_event.dart';
 part 'manga_info_state.dart';

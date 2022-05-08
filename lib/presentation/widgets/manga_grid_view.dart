@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loadany/loadany_widget.dart';
 
-import '../../domain/entities/MangaInfo.dart';
+import '../../domain/entities/manga_info.dart';
 import '../bloc/homepage_bloc/homepage_bloc.dart';
 import 'manga_grid_data.dart';
 

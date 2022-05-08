@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases.dart';
-import '../../../../domain/repositories/research_repository.dart';
+import '../repositories/search_repository.dart';
 
-class GetResearchHistory extends UseCase<List<String>, NoParams> {
-  final ResearchRepository repository;
+class GetSearchHistory extends UseCase<List<String>, NoParams> {
+  final SearchRepository repository;
 
-  GetResearchHistory(this.repository);
+  GetSearchHistory(this.repository);
 
   @override
   Future<Either<Failure, List<String>>> call(NoParams? params) async {

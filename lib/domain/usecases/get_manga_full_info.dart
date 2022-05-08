@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../core/errors/failures.dart';
 import '../../core/usecases.dart';
-import '../entities/CompleteMangaInfo.dart';
+import '../entities/complete_manga_info.dart';
 import '../repositories/manga_info_repository.dart';
 
 class GetFullMangaInfo extends UseCase<CompleteMangaInfo, Params> {

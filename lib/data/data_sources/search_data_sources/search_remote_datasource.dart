@@ -4,19 +4,19 @@ import '../../../../constants/error_message_constant.dart';
 import '../../../../core/errors/exception.dart';
 import 'package:http/http.dart' as http;
 
-import '../../model/Manga_info_model.dart';
+import '../../model/manga_info_model.dart';
 
-abstract class ResearchRemoteDataSource {
-  Future<List<MangaInfoModel>> getResearchScans(String query, int page);
+abstract class SearchRemoteDataSource {
+  Future<List<MangaInfoModel>> getSearchScans(String query, int page);
 }
 
-class ResearchRemoteDataSourceImpl implements ResearchRemoteDataSource {
+class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
   final http.Client client;
 
-  ResearchRemoteDataSourceImpl({required this.client});
+  SearchRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<MangaInfoModel>> getResearchScans(String query, int page) async {
+  Future<List<MangaInfoModel>> getSearchScans(String query, int page) async {
     late http.Response response;
 
     try {

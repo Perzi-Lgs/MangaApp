@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/ScanImage.dart';
+import '../../../domain/entities/scan_image.dart';
 
 class WebtoonsReader extends StatelessWidget {
   const WebtoonsReader({

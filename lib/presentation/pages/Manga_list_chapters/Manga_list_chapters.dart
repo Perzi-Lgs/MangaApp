@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/component/appbar.dart';
-import '../../../domain/entities/CompleteMangaInfo.dart';
-import 'Manga_list_chapters_body.dart';
+import '../../../domain/entities/complete_manga_info.dart';
+import 'manga_list_chapters_body.dart';
 
 class ListChaptersPage extends StatelessWidget {
   ListChaptersPage({required this.info});
