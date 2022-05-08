@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart';
-import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
-import 'package:mobile/features/homepage/domain/usecases/get_list_manga_per_sources.dart';
+import 'package:mobile/domain/entities/MangaInfo.dart';
+import 'package:mobile/domain/repositories/HomePage_repository.dart';
+import 'package:mobile/domain/usecases/get_list_manga_per_sources.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

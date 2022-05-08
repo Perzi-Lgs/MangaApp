@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/core/errors/exception.dart';
-import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
-import 'package:mobile/features/homepage/data/model/Manga_info_model.dart';
+import 'package:mobile/data/datasources/Homepage_remote_data_source.dart';
+import 'package:mobile/data/model/Manga_info_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;

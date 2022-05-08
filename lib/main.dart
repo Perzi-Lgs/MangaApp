@@ -6,7 +6,7 @@ import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
 import 'config/routes/route_generator.dart';
 import 'dependency_injection.dart' as di;
 import 'dependency_injection.dart';
-import 'features/search/presentation/bloc/search_bloc.dart';
+import 'presentation/bloc/search_bloc/search_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

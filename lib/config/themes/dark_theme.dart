@@ -9,6 +9,8 @@ ThemeData get darkTheme {
       scaffoldBackgroundColor: Colors.black,
       fontFamily: 'Roboto',
       inputDecorationTheme: InputDecorationTheme(
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.zero,
         hintStyle: TextStyle(
             color: CustomColors.lightGrey,
             fontSize: 16,
@@ -37,6 +39,10 @@ ThemeData get darkTheme {
             fontSize: 16,
             fontWeight: FontWeight.w400),
         headline3: TextStyle(
+            color: CustomColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        headline6: TextStyle(
             color: CustomColors.white,
             fontSize: 16,
             fontWeight: FontWeight.w400),

@@ -6,7 +6,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mobile/core/errors/failures.dart' as _i5;
-import 'package:mobile/features/homepage/domain/entities/MangaInfo.dart' as _i6;
+import 'package:mobile/domain/entities/MangaInfo.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 import 'get_list_manga_per_sources_test.dart' as _i3;

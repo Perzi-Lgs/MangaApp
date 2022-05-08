@@ -4,10 +4,10 @@ import 'package:mobile/constants/error_message_constant.dart';
 import 'package:mobile/core/errors/exception.dart';
 import 'package:mobile/core/errors/failures.dart';
 import 'package:mobile/core/network.dart';
-import 'package:mobile/features/homepage/data/datasources/Homepage_remote_data_source.dart';
-import 'package:mobile/features/homepage/data/model/Manga_info_model.dart';
-import 'package:mobile/features/homepage/data/repositories/HomePage_repository_impl.dart';
-import 'package:mobile/features/homepage/domain/repositories/HomePage_repository.dart';
+import 'package:mobile/data/datasources/Homepage_remote_data_source.dart';
+import 'package:mobile/data/model/Manga_info_model.dart';
+import 'package:mobile/data/repositories/HomePage_repository_impl.dart';
+import 'package:mobile/domain/repositories/HomePage_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
