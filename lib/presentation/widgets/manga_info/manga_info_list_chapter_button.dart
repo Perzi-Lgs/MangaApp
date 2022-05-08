@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../bloc/manga_info_bloc/mangainfo_bloc.dart';
+import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import '../../pages/Manga_list_chapters/Manga_list_chapters.dart';
 
 
@@ -10,7 +10,7 @@ class MangaInfoListChapterButton extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
-  final MangainfoState state;
+  final MangaInfoState state;
 
   @override
   Widget build(BuildContext context) {

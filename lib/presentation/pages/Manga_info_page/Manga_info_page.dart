@@ -4,7 +4,7 @@ import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../../domain/entities/MangaInfo.dart';
-import '../../bloc/manga_info_bloc/mangainfo_bloc.dart';
+import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import 'Manga_info_page_body.dart';
 
 class MangaInfoPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class MangaInfoPage extends StatelessWidget {
       builder: (context, state) {
         print(state.index);
         return BlocProvider(
-          create: (context) => MangainfoBloc(getFullMangaInfo: sl())
+          create: (context) => MangaInfoBloc(getFullMangaInfo: sl())
             ..add(FetchMangaInfo(url: info.url)),
           child: MangaInfoPageBody(info: info),
         );

@@ -1,4 +1,4 @@
-part of 'mangainfo_bloc.dart';
+part of 'manga_info_bloc.dart';
 
 abstract class MangainfoEvent extends Equatable {
   const MangainfoEvent();

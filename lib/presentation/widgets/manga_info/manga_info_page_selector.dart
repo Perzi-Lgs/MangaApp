@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/theme_config.dart';
-import '../../bloc/manga_info_bloc/mangainfo_bloc.dart';
+import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import 'logo_button.dart';
 
 class MangaInfoPageSelector extends StatelessWidget {
@@ -10,7 +10,7 @@ class MangaInfoPageSelector extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
-  final MangainfoState state;
+  final MangaInfoState state;
 
   @override
   Widget build(BuildContext context) {

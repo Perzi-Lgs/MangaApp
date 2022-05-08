@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/theme_config.dart';
 
 import '../../../domain/entities/MangaInfo.dart';
-import '../../bloc/manga_info_bloc/mangainfo_bloc.dart';
+import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import '../../widgets/manga_info/manga_info_divider.dart';
 import '../../widgets/manga_info/manga_info_list_chapter_button.dart';
 import '../../widgets/manga_info/manga_info_page_selector.dart';
@@ -20,9 +20,9 @@ class MangaInfoPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MangainfoBloc, MangainfoState>(
+    return BlocBuilder<MangaInfoBloc, MangaInfoState>(
       builder: (context, state) {
-        if (state.status == MangainfoStateStatus.success)
+        if (state.status == MangaInfoStateStatus.success)
           return DraggableScrollableSheet(
             expand: false,
             initialChildSize: 1,
@@ -52,7 +52,7 @@ class MangaInfoPageData extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final MangainfoState state;
+  final MangaInfoState state;
 
   @override
   Widget build(BuildContext context) {

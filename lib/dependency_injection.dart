@@ -25,7 +25,7 @@ import 'data/repositories/research_repository_impl.dart';
 import 'domain/usecases/get_research_manga copy.dart';
 import 'domain/usecases/get_research_manga.dart';
 import 'presentation/bloc/homepage_bloc/homepage_bloc.dart';
-import 'presentation/bloc/manga_info_bloc/mangainfo_bloc.dart';
+import 'presentation/bloc/manga_info_bloc/manga_info_bloc.dart';
 import 'presentation/bloc/manga_reader_bloc/mangareader_bloc.dart';
 import 'presentation/bloc/search_bloc/search_bloc.dart';
 
@@ -33,7 +33,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   sl.registerFactory(() => HomepageBloc(getHomepageScans: sl()));
-  sl.registerFactory(() => MangainfoBloc(getFullMangaInfo: sl()));
+  sl.registerFactory(() => MangaInfoBloc(getFullMangaInfo: sl()));
   sl.registerFactory(() => MangareaderBloc(getMangaScan: sl()));
   sl.registerFactory(() => SearchBloc(
       getResearchScans: sl(),

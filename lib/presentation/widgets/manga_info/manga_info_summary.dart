@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/theme_config.dart';
-import '../../bloc/manga_info_bloc/mangainfo_bloc.dart';
+import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import 'genres _button_list.dart';
 
 class SummaryMangaInfo extends StatelessWidget {
@@ -10,7 +10,7 @@ class SummaryMangaInfo extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
-  final MangainfoState state;
+  final MangaInfoState state;
 
   @override
   Widget build(BuildContext context) {
