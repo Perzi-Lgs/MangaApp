@@ -19,7 +19,8 @@ class SearchResultDisplay extends StatelessWidget {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-    return FloatingSearchBarScrollNotifier(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: CustomScrollView(
         slivers: [
           SliverGrid(
