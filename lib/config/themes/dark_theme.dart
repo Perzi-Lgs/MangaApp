@@ -4,9 +4,21 @@ import 'package:mobile/config/themes/theme_config.dart';
 ThemeData get darkTheme {
   return ThemeData(
       primaryColor: CustomColors.darkGrey,
+      secondaryHeaderColor: CustomColors.white,
       iconTheme: IconThemeData(color: CustomColors.mainBlue),
       scaffoldBackgroundColor: Colors.black,
       fontFamily: 'Roboto',
+      inputDecorationTheme: InputDecorationTheme(
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.zero,
+        hintStyle: TextStyle(
+            color: CustomColors.lightGrey,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        filled: true,
+        fillColor: CustomColors.darkGrey,
+        iconColor: CustomColors.white,
+      ),
       textTheme: const TextTheme(
         headline1: TextStyle(
           color: CustomColors.white,
@@ -22,6 +34,18 @@ ThemeData get darkTheme {
             color: CustomColors.white,
             fontSize: 10,
             fontWeight: FontWeight.w300),
+        bodyText2: TextStyle(
+            color: CustomColors.lightGrey,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        headline3: TextStyle(
+            color: CustomColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
+        headline6: TextStyle(
+            color: CustomColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w400),
       ),
       buttonTheme: ButtonThemeData(
         shape:
