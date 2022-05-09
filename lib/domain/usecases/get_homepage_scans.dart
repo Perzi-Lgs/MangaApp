@@ -6,7 +6,7 @@ import '../entities/manga_info.dart';
 import '../repositories/homepage_repository.dart';
 
 class GetHomepageScans extends UseCase<List<MangaInfo>, Params> {
-  final HomePageRepository repository;
+  final HomepageRepository repository;
 
   GetHomepageScans(this.repository);
 

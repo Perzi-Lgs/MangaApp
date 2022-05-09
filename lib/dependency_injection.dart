@@ -50,7 +50,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetSearchHistory(sl()));
 
   //repository
-  sl.registerLazySingleton<HomePageRepository>(
+  sl.registerLazySingleton<HomepageRepository>(
       () => HomePageRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<MangaInfoPageRepository>(() =>
       MangaInfoPageRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));

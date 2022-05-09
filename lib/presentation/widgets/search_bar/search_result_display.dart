@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import '../../bloc/search_bloc/search_bloc.dart';
 import '../manga_grid_data.dart';

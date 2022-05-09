@@ -8,7 +8,7 @@ import '../../domain/entities/manga_info.dart';
 import '../../domain/repositories/homepage_repository.dart';
 import '../data_sources/homepage_remote_data_source.dart';
 
-class HomePageRepositoryImpl implements HomePageRepository {
+class HomePageRepositoryImpl implements HomepageRepository {
   final HomepageRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 

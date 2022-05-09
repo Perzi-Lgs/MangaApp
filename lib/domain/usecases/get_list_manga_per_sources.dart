@@ -6,7 +6,7 @@ import '../entities/manga_info.dart';
 import '../repositories/homepage_repository.dart';
 
 class GetListMangaPerSource extends UseCase<List<MangaInfo>, Params> {
-  final HomePageRepository repository;
+  final HomepageRepository repository;
 
   GetListMangaPerSource(this.repository);
 

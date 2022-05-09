@@ -23,12 +23,12 @@ import 'get_list_manga_per_sources_test.dart' as _i3;
 
 class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
-/// A class which mocks [TestHomePageRepository].
+/// A class which mocks [TestHomepageRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTestHomePageRepository extends _i1.Mock
-    implements _i3.TestHomePageRepository {
-  MockTestHomePageRepository() {
+class MockTestHomepageRepository extends _i1.Mock
+    implements _i3.TestHomepageRepository {
+  MockTestHomepageRepository() {
     _i1.throwOnMissingStub(this);
   }
 

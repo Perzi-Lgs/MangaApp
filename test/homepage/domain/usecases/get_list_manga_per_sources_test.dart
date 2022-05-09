@@ -8,15 +8,15 @@ import 'package:mockito/mockito.dart';
 
 import 'get_list_manga_per_sources_test.mocks.dart';
 
-class TestHomePageRepository extends Mock implements HomePageRepository {}
+class TestHomepageRepository extends Mock implements HomepageRepository {}
 
-@GenerateMocks([TestHomePageRepository])
+@GenerateMocks([TestHomepageRepository])
 void main() {
   late GetListMangaPerSource usecase;
-  late MockTestHomePageRepository testDashboardRepository;
+  late MockTestHomepageRepository testDashboardRepository;
 
   setUp(() {
-    testDashboardRepository = MockTestHomePageRepository();
+    testDashboardRepository = MockTestHomepageRepository();
     usecase = GetListMangaPerSource(testDashboardRepository);
   });
 
