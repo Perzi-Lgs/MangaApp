@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases.dart';
 import '../entities/manga_info.dart';
-import '../repositories/homepage_repository.dart';
+import '../repositories/HomePage_repository.dart';
 
 class GetHomepageScans extends UseCase<List<MangaInfo>, Params> {
   final HomepageRepository repository;

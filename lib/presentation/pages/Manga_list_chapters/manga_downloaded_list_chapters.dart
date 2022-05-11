@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/domain/entities/Chapter.dart';
 
+import '../../../domain/entities/chapter.dart';
 import '../../../domain/entities/manga_info.dart';
 import '../../bloc/download_bloc/download_bloc.dart';
 import 'manga_downloaded_list_chapters_body.dart';

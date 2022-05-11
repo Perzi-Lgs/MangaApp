@@ -5,7 +5,7 @@ import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../domain/entities/manga_info.dart';
-import '../../domain/repositories/homepage_repository.dart';
+import '../../domain/repositories/HomePage_repository.dart';
 import '../data_sources/homepage_remote_data_source.dart';
 
 class HomePageRepositoryImpl implements HomepageRepository {

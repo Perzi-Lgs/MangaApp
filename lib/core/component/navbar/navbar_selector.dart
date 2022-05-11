@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/presentation/pages/homepage/homepage.dart';
 
 import '../../../presentation/pages/download_page/download_page.dart';
 import '../../../presentation/pages/favorite_page/favorite_page.dart';
+import '../../../presentation/pages/homePage/homePage.dart';
 import '../../../presentation/pages/recent_page/recent_page.dart';
 
 class NavbarSelector extends StatelessWidget {

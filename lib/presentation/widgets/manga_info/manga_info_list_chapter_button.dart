@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entities/manga_info.dart';
 import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
-import '../../pages/Manga_list_chapters/manga_list_chapters.dart';
-import '../../pages/manga_list_chapters/manga_downloaded_list_chapters.dart';
+import '../../pages/Manga_list_chapters/Manga_list_chapters.dart';
+import '../../pages/Manga_list_chapters/manga_downloaded_list_chapters.dart';
 
 class MangaInfoListChapterButton extends StatelessWidget {
   const MangaInfoListChapterButton({
