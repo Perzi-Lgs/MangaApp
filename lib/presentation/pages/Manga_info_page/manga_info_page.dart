@@ -5,7 +5,7 @@ import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
 import '../../../../../dependency_injection.dart';
 import '../../../domain/entities/manga_info.dart';
 import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
-import 'Manga_info_page_body.dart';
+import 'manga_info_page_body.dart';
 
 class MangaInfoPage extends StatelessWidget {
   const MangaInfoPage({Key? key, required this.info}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../presentation/pages/download_page/download_page.dart';
 import '../../../presentation/pages/favorite_page/favorite_page.dart';
-import '../../../presentation/pages/homePage/homePage.dart';
+import '../../../presentation/pages/homePage/homepage.dart';
 import '../../../presentation/pages/recent_page/recent_page.dart';
 
 class NavbarSelector extends StatelessWidget {
