@@ -9,7 +9,6 @@ import '../../widgets/manga_info/manga_info_list_chapter_button.dart';
 import '../../widgets/manga_info/manga_info_page_selector.dart';
 import '../../widgets/manga_info/manga_info_summary.dart';
 
-
 class MangaInfoPageBody extends StatelessWidget {
   const MangaInfoPageBody({
     Key? key,
@@ -32,7 +31,10 @@ class MangaInfoPageBody extends StatelessWidget {
                 color: CustomColors.darkGrey,
                 child: SingleChildScrollView(
                   controller: scrollController,
-                  child: MangaInfoPageData(state: state),
+                  child: MangaInfoPageData(
+                    state: state,
+                    info: info,
+                  ),
                 ),
               );
             },
@@ -49,10 +51,12 @@ class MangaInfoPageBody extends StatelessWidget {
 class MangaInfoPageData extends StatelessWidget {
   const MangaInfoPageData({
     required this.state,
+    required this.info,
     Key? key,
   }) : super(key: key);
 
   final MangaInfoState state;
+  final MangaInfo info;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,7 @@ class MangaInfoPageData extends StatelessWidget {
         ),
         MangaInfoPageSelector(state: state),
         MangaInfoDivider(),
-        MangaInfoListChapterButton(state: state),
+        MangaInfoListChapterButton(state: state, info: info),
         MangaInfoDivider(),
         SummaryMangaInfo(state: state)
       ],

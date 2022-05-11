@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/errors/error_route.dart';
-import '../../presentation/pages/homePage/homepage.dart';
+import '../../presentation/pages/app_body.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -9,7 +9,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => AppBody());
     }
     return errorRoute();
   }

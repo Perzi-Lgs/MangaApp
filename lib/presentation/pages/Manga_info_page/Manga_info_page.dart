@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
+import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
+import 'package:mobile/presentation/bloc/download_bloc/download_bloc.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../../domain/entities/manga_info.dart';
@@ -14,10 +15,9 @@ class MangaInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavbarBloc, NavbarState>(
-      bloc: context.read<NavbarBloc>(),
+    return BlocBuilder<NavbarCubit, int>(
+      bloc: context.read<NavbarCubit>(),
       builder: (context, state) {
-        print(state.index);
         return BlocProvider(
           create: (context) => MangaInfoBloc(getFullMangaInfo: sl())
             ..add(FetchMangaInfo(url: info.url)),
