@@ -19,31 +19,34 @@ class MangaInfoPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MangaInfoBloc, MangaInfoState>(
-      builder: (context, state) {
-        if (state.status == MangaInfoStateStatus.success)
-          return DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: 1,
-            minChildSize: 0.9,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                color: CustomColors.darkGrey,
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: MangaInfoPageData(
-                    state: state,
-                    info: info,
+    return SafeArea(
+      child: BlocBuilder<MangaInfoBloc, MangaInfoState>(
+        builder: (context, state) {
+          if (state.status == MangaInfoStateStatus.success)
+            return DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 1,
+              minChildSize: 0.8,
+              builder:
+                  (BuildContext context, ScrollController scrollController) {
+                return Container(
+                  color: CustomColors.darkGrey,
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: MangaInfoPageData(
+                      state: state,
+                      info: info,
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-        else
-          return Container(
-            color: CustomColors.darkGrey,
-          );
-      },
+                );
+              },
+            );
+          else
+            return Container(
+              color: CustomColors.darkGrey,
+            );
+        },
+      ),
     );
   }
 }
@@ -62,10 +65,12 @@ class MangaInfoPageData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.network(
-          state.info.img,
-          headers: {'Referer': 'https://readmanganato.com/'},
-          fit: BoxFit.cover,
+        Container(
+          child: Image.network(
+            state.info.img,
+            headers: {'Referer': 'https://readmanganato.com/'},
+            fit: BoxFit.scaleDown,
+          ),
         ),
         // Manga name
         Container(

@@ -23,6 +23,16 @@ class GetDownloadedChaptersList extends DownloadEvent {
   List<Object> get props => [];
 }
 
+class LaunchChaptersDownload extends DownloadEvent {
+  const LaunchChaptersDownload({required this.info, required this.chapters});
+
+  final MangaInfo info;
+  final List<Chapter> chapters;
+
+  @override
+  List<Object> get props => [];
+}
+
 // class GetDownloadChapter extends Equatable {
 //   const GetDownloadChaptersList({required this.mangaUrl});
 

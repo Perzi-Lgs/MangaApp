@@ -2,14 +2,19 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/data/data_sources/manga_info_page_remote_data_source.dart';
+import 'package:mobile/domain/repositories/download_repository.dart';
+import 'package:mobile/domain/usecases/Download/download_chapter.dart';
 import 'package:mobile/domain/usecases/get_manga_full_info.dart';
 import 'package:mobile/domain/repositories/search_repository.dart';
+import 'package:mobile/presentation/bloc/download_bloc/download_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/network.dart';
+import 'data/data_sources/download_data_sources/download_local_data_souce.dart';
 import 'data/data_sources/homepage_remote_data_source.dart';
 import 'data/data_sources/search_data_sources/search_local_datasource.dart';
 import 'data/data_sources/search_data_sources/search_remote_datasource.dart';
+import 'data/repositories/download_repository_impl.dart';
 import 'data/repositories/homepage_repository_impl.dart';
 import 'data/repositories/manga_info_page_repository_impl.dart';
 import 'domain/repositories/homepage_repository.dart';
@@ -35,6 +40,7 @@ Future<void> init() async {
   sl.registerFactory(() => HomepageBloc(getHomepageScans: sl()));
   sl.registerFactory(() => MangaInfoBloc(getFullMangaInfo: sl()));
   sl.registerFactory(() => MangareaderBloc(getMangaScan: sl()));
+  sl.registerFactory(() => DownloadBloc(downloadChapter: sl()));
   sl.registerFactory(() => SearchBloc(
       getResearchScans: sl(),
       deleteSearchInHistory: sl(),
@@ -48,6 +54,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetSearchScans(sl()));
   sl.registerLazySingleton(() => DeleteSearchInHistory(sl()));
   sl.registerLazySingleton(() => GetSearchHistory(sl()));
+  sl.registerLazySingleton(() => DownloadChapter(sl()));
 
   //repository
   sl.registerLazySingleton<HomepageRepository>(
@@ -58,8 +65,14 @@ Future<void> init() async {
       () => ScanMangaRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl(
       remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
+  sl.registerLazySingleton<DownloadRepository>(() => DownloadRepositoryImpl(
+      downloadLocalDataSource: sl(),
+      networkInfo: sl(),
+      scanMangaRemoteDatasource: sl()));
 
   //Data Sources
+  sl.registerLazySingleton<DownloadDataSource>(
+      () => DownloadDataSourceImpl(sharedPreferences: sl(), client: sl()));
   sl.registerLazySingleton<HomepageRemoteDataSource>(
       () => HomepageRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<MangaInfoPageRemoteDatasource>(

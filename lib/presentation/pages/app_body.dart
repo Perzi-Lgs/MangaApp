@@ -16,7 +16,7 @@ class AppBody extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
             appBar: MangaAppBar(title: "Manga Rock"),
-            body: NavbarSelector(index: state),
+            body: SafeArea(child: NavbarSelector(index: state)),
             bottomNavigationBar: MangaNavbar(index: state));
       },
     );
