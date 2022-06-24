@@ -27,7 +27,6 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
             'Content-Type': 'application/json',
             // 'Authorization': 'token a recup'
           }).timeout(const Duration(seconds: 5));
-      print(response);
     } catch (e) {
       throw ServerException(timeoutServerError);
     }

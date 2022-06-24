@@ -31,7 +31,6 @@ class DownloadDataSourceImpl implements DownloadDataSource {
   @override
   Future<bool> downloadScans(String mangaName, List<ScanImage> scans) async {
     String path = await getFilePath(mangaName);
-    print(path);
 
     for (var i in scans) {
       final rawData = await client.get(Uri.parse(i.imageLink),

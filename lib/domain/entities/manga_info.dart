@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile/domain/entities/authorData.dart';
+import 'package:mobile/domain/entities/searchableField.dart';
 
 class MangaInfo extends Equatable {
   final String img; //urlimg
   final String name; //urlimg
   final String url; //urlimg
-  final Author author; //urlimg
+  final SearchableField author; //urlimg
 
   MangaInfo( 
       {required this.author, required this.img,
@@ -14,10 +14,10 @@ class MangaInfo extends Equatable {
   static final empty = MangaInfo(
     img: '',
     url: '',
-    name: '', author: Author.empty(),
+    name: '', author: SearchableField.empty(),
   );
 
-  MangaInfo copyWith({String? img, String? url, String? name, Author? author}) {
+  MangaInfo copyWith({String? img, String? url, String? name, SearchableField? author}) {
     return MangaInfo(img: img ?? this.img, url: url ?? this.url, name: name ?? this.name, author: author ?? this.author);
   }
 

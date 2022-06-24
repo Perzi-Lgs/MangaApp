@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile/domain/entities/searchableField.dart';
 
 import 'chapter.dart';
 
@@ -6,8 +7,8 @@ class CompleteMangaInfo extends Equatable {
   final String img; //urlimg
   final String name; //urlimg
   final String description; //urlimg
-  final String author; //urlimg
-  final List<String> genre; //urlimg
+  final SearchableField author; //urlimg
+  final List<SearchableField> genre; //urlimg
   final String update; //urlimg
   final String status; //urlimg
   final List<Chapter> scans; //urlimg
@@ -25,7 +26,7 @@ class CompleteMangaInfo extends Equatable {
   static final empty = CompleteMangaInfo(
     img: '',
     name: '',
-    author: '',
+    author: SearchableField.empty(),
     description: '',
     genre: [],
     scans: [],
@@ -37,8 +38,8 @@ class CompleteMangaInfo extends Equatable {
     String? img,
     String? name,
     String? description,
-    String? author,
-    List<String>? genre,
+    SearchableField? author,
+    List<SearchableField>? genre,
     String? update,
     String? status,
     List<Chapter>? scans,

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/domain/entities/authorData.dart';
+import 'package:mobile/domain/entities/searchableField.dart';
 import 'package:mobile/domain/entities/manga_info.dart';
 import 'package:mobile/domain/repositories/homepage_repository.dart';
 import 'package:mobile/domain/usecases/get_list_manga_per_sources.dart';

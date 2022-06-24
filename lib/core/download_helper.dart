@@ -25,5 +25,4 @@ void saveFile(String path, List<int> rawData) async {
 //   File file = File(await getFilePath()); // 1
 //   String fileContent = await file.readAsString(); // 2
 
-//   print('File Content: $fileContent');
 // }

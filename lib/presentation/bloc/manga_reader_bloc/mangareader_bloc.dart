@@ -19,7 +19,6 @@ class MangareaderBloc extends Bloc<MangareaderEvent, MangareaderState> {
       emit(state.copyWith(status: MangareaderStateStatus.loading));
 
       final mangaScan = await getMangaScan(Params(url: event.url));
-      print(mangaScan);
       mangaScan.fold(
           (l) => emit(state.copyWith(status: MangareaderStateStatus.failure)),
           (r) => emit(state.copyWith(
