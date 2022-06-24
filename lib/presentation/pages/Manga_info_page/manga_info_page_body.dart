@@ -85,7 +85,7 @@ class MangaInfoPageData extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 5),
           child: Text(
-            state.info.author + ' · ' + state.info.status,
+            state.info.author.label + ' · ' + state.info.status,
             style: TextStyle(color: Colors.grey),
             overflow: TextOverflow.ellipsis,
           ),
