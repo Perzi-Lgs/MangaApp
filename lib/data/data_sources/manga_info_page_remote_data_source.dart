@@ -21,7 +21,7 @@ class MangaInfoPageRemoteDatasourceImpl implements MangaInfoPageRemoteDatasource
 
     try {
       response = await client.get(
-        Uri.http('35.180.230.94', 'mangaData', {'source': url}),
+        Uri.http('35.180.192.181', 'mangaData', {'source': url}),
         headers: {
           'Content-Type': 'application/json',
         }

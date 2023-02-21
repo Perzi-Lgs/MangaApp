@@ -21,7 +21,7 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
 
     try {
       response = await client.get(
-          Uri.http('35.180.230.94', 'search',
+          Uri.http('35.180.192.181', 'search',
               {'search': query, 'page': page.toString()}),
           headers: {
             'Content-Type': 'application/json',
