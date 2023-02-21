@@ -4,7 +4,7 @@ import '../../../core/component/appbar.dart';
 import '../../../core/component/navbar/bloc/navbar_bloc.dart';
 import '../../../core/component/navbar/navbar.dart';
 
-import 'homepageBody.dart';
+import 'homepage_body.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

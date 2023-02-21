@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/manga_info.dart';
-import '../pages/Manga_info_page/manga_info_page.dart';
+import '../pages/manga_info_page/manga_info_page.dart';
 
 class GridMangaData extends StatelessWidget {
   final MangaInfo info;
