@@ -8,7 +8,7 @@ import 'package:mobile/domain/entities/manga_info.dart';
 import '../../../fixtures/fixtures_reader.dart';
 
 void main() {
-  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url', author: Author.empty());
+  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url', author: SearchableField.empty());
 
   test(
     'should be a subclass of Mangainfo entity',

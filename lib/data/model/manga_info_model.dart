@@ -1,5 +1,5 @@
-import '../../domain/entities/searchableField.dart';
 import '../../domain/entities/manga_info.dart';
+import '../../domain/entities/searchableField.dart';
 
 class MangaInfoModel extends MangaInfo {
   MangaInfoModel({
@@ -11,13 +11,14 @@ class MangaInfoModel extends MangaInfo {
 
   factory MangaInfoModel.fromJson(Map<String, dynamic> json) {
     return MangaInfoModel(
-      url: json['url'] ?? '',
-      img: json['img'] ?? '',
-      name: json['name'] ?? '', author: SearchableField.fromJson(json['author'] ?? SearchableField.empty()),
+      url: json['url'],
+      img: json['img'],
+      name: json['name'],
+      author: json['author'],
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {'img': img, 'name': name, 'url': url, 'author': {'label': author.label}};
+    return {'img': img, 'name': name, 'url': url};
   }
 }
