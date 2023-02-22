@@ -18,18 +18,18 @@ class ListDownloadedChaptersPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DownloadBloc, DownloadState>(
-      builder: (context, state) {
-        // if (state.status == DownloadStatus.success)
-        return ListDownloadedChaptersPageBodyWidget(
-            info: info, scansData: scansData);
-        // else if (state.status == DownloadStatus.loading)
-        //   return Center(child: CircularProgressIndicator());
-        // else
-        //   return Text('An error happened... sad...',
-        //       style: TextStyle(color: Colors.red));
-      },
-    );
+    return BlocListener<DownloadBloc, DownloadState>(
+        listener: (context, state) {
+          final loading = SnackBar(content: const Text('Downloading...'));
+          final success = SnackBar(content: const Text('Success downloading!'));
+          if (state.status == DownloadStatus.loading) {
+            ScaffoldMessenger.of(context).showSnackBar(loading);
+          } else if (state.status == DownloadStatus.success) {
+            Navigator.pop(context, success);
+          }
+        },
+        child: ListDownloadedChaptersPageBodyWidget(
+            info: info, scansData: scansData));
   }
 }
 
@@ -118,14 +118,19 @@ class ListDownloadedChaptersPageBodyWidget extends StatelessWidget {
                       ),
                       Flexible(
                         flex: 40,
-                        child: TextButton(
-                            onPressed: state.list.contains(true)
-                                ? () => context.read<DownloadBloc>().add(
-                                    LaunchChaptersDownload(
-                                        info: info,
-                                        chapters: _getDownloadList(state.list)))
-                                : null,
-                            child: Text('DOWNLOAD')),
+                        child: Column(
+                          children: [
+                            TextButton(
+                                onPressed: state.list.contains(true)
+                                    ? () => context.read<DownloadBloc>().add(
+                                        LaunchChaptersDownload(
+                                            info: info,
+                                            chapters:
+                                                _getDownloadList(state.list)))
+                                    : null,
+                                child: Text('DOWNLOAD')),
+                          ],
+                        ),
                       ),
                     ],
                   ),

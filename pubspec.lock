@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  background_downloader:
+    dependency: "direct main"
+    description:
+      name: background_downloader
+      sha256: "1fb4089a64ecf2d56f7f587f4d0b84f9e90370e25ba06813868837d3df39cc08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   bloc:
     dependency: transitive
     description:

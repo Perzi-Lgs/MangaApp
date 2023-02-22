@@ -13,16 +13,17 @@ class DownloadChapter extends UseCase<bool, DownloadChapterParams> {
 
   @override
   Future<Either<Failure, bool>> call(DownloadChapterParams? params) async {
-    return await repository.downloadChapter(params!.info, params.chapter);
+    return await repository.downloadChapter(params!.info, params.chapter, params.statusCallback);
   }
 }
 
 class DownloadChapterParams extends Equatable {
   final MangaInfo info;
   final Chapter chapter;
+  final void Function(int status, double progress) statusCallback;
 
-  DownloadChapterParams({required this.chapter, required this.info});
+  DownloadChapterParams({required this.chapter, required this.info, required this.statusCallback});
 
   @override
-  List<Object?> get props => [info, chapter];
+  List<Object?> get props => [info, chapter, statusCallback];
 }

@@ -42,6 +42,7 @@ dependencies:
   freezed: ^1.1.0
   material_floating_search_bar: ^0.3.7
   path_provider: ^2.0.10
+  background_downloader: ^3.0.1
 
 dev_dependencies:
   bloc_test: ^9.0.2

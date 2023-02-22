@@ -3,7 +3,6 @@ import 'package:mobile/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mobile/domain/entities/scan_image.dart';
 import 'package:mobile/domain/repositories/download_repository.dart';
-import 'package:mobile/main.dart';
 
 import '../../core/network.dart';
 import '../../domain/entities/manga_info.dart';
@@ -22,7 +21,7 @@ class DownloadRepositoryImpl implements DownloadRepository {
 
   @override
   Future<Either<Failure, bool>> downloadChapter(
-      MangaInfo info, Chapter chapter) async {
+      MangaInfo info, Chapter chapter, void Function(int status, double progress) statusCallback) async {
     try {
       if (await networkInfo.isConnected) {
         final List<ScanImage> scans =
@@ -34,7 +33,7 @@ class DownloadRepositoryImpl implements DownloadRepository {
           return Left(CacheFailure('Cache Error'));
         }
         downloadLocalDataSource.downloadScans(
-            info.name + '/' + chapter.name, scans);
+            info.name + '/' + chapter.name, scans, statusCallback);
         return Right(true);
       } else {
         return Left(InternetFailure('No Internet'));

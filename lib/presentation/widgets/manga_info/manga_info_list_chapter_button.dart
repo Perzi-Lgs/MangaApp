@@ -5,7 +5,6 @@ import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
 import '../../pages/manga_list_chapters/manga_downloaded_list_chapters.dart';
 import '../../pages/manga_list_chapters/manga_list_chapters.dart';
 
-
 class MangaInfoListChapterButton extends StatelessWidget {
   const MangaInfoListChapterButton({
     Key? key,
@@ -34,11 +33,19 @@ class MangaInfoListChapterButton extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
                         icon: Icon(Icons.file_download_outlined),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ListDownloadedChaptersPage(info: info, scansData: state.info.scans))),
+                        onPressed: () async {
+                          final res = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListDownloadedChaptersPage(
+                                          info: info,
+                                          scansData: state.info.scans)));
+                          final success = SnackBar(
+                              content: const Text('Success downloading!'));
+
+                          ScaffoldMessenger.of(context).showSnackBar(success);
+                        },
                       ),
                     ),
                     Icon(Icons.more_horiz)

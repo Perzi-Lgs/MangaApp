@@ -25,16 +25,32 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
 
   void _onLaunchChaptersDownload(
       LaunchChaptersDownload event, Emitter<DownloadState> emit) async {
-    emit(state.copyWith(status: DownloadStatus.loading));
+
+    void downloadStatusCallback(int status, double progress) async {
+      if (status == 1) {
+        emit(
+            state.copyWith(status: DownloadStatus.success));
+      }
+    }
+    
     try {
       for (var i in event.chapters) {
-        final res = await downloadChapter(
-            DownloadChapterParams(chapter: i, info: event.info));
-        res.fold((l) => emit(state.copyWith(status: DownloadStatus.error)),
-            (r) => emit(state.copyWith(status: DownloadStatus.success)));
+      emit(
+            state.copyWith(status: DownloadStatus.loading));
+        await downloadChapter(
+            DownloadChapterParams(chapter: i, info: event.info, statusCallback: downloadStatusCallback));
       }
+      while (state.status != DownloadStatus.success) {
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
+      emit(state.copyWith(status: DownloadStatus.success));
     } catch (e) {
       emit(state.copyWith(status: DownloadStatus.error));
     }
   }
 }
+
+
+// callback(id, progress) {
+//  emit([id] = progress)
+// }
