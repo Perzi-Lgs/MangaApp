@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/config/themes/dark_theme.dart';
-import 'package:mobile/core/component/navbar/bloc/navbar_bloc.dart';
+import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
 
 import 'config/routes/route_generator.dart';
 import 'dependency_injection.dart' as di;
@@ -22,7 +22,7 @@ class Manga extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => NavbarBloc(),
+          create: (context) => NavbarCubit(),
         ),
         BlocProvider(
           create: (context) => SearchBloc(

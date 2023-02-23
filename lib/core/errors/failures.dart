@@ -18,3 +18,17 @@ class CacheFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class InternetFailure extends Failure {
+  InternetFailure(String message) : super(message);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class UnexpectedFailure extends Failure {
+  UnexpectedFailure(String message) : super(message);
+
+  @override
+  List<Object?> get props => [];
+}

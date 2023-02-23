@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/data/model/manga_info_model.dart';
+import 'package:mobile/domain/entities/searchableField.dart';
 import 'package:mobile/domain/entities/manga_info.dart';
 
 import '../../../fixtures/fixtures_reader.dart';
 
 void main() {
-  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url');
+  final tMangaInfoModel = MangaInfoModel(img: 'img', name: 'name', url: 'url', author: SearchableField.empty());
 
   test(
     'should be a subclass of Mangainfo entity',
@@ -34,7 +35,8 @@ void main() {
       final expectedJsonMap = {
         "img": "img",
         "name": "name",
-        "url": "url"
+        "url": "url",
+        "author": {'label': ''}
       };
       expect(result, expectedJsonMap);
     });
