@@ -18,7 +18,7 @@ class MangaReaderBody extends StatelessWidget {
     return BlocBuilder<MangareaderBloc, MangareaderState>(
       builder: (context, state) {
         if (state.status == MangareaderStateStatus.success) {
-          if (info.genre.contains('Webtoons')) {
+          if (info.genre.any((element) => element.label == "Webtoons")) {
             return WebtoonsReader(images: state.images);
           } else
             return MangaReader(images: state.images);

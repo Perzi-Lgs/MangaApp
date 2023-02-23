@@ -37,9 +37,6 @@ class MangaReader extends StatelessWidget {
             backgroundDecoration: BoxDecoration(
               color: Colors.black,
             ),
-            // loadingChild: Center(
-            //   child: CircularProgressIndicator(),
-            // ),
           ),
         );
       },

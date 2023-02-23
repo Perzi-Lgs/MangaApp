@@ -20,7 +20,6 @@ class MangaReader extends StatelessWidget {
       create: (context) => MangareaderBloc(getMangaScan: sl())
         ..add(GetScans(url: info.scans[index].url)),
       child: Scaffold(
-        appBar: MangaAppBar(title: info.scans[index].name),
         body: MangaReaderBody(info: info, index: index),
       ),
     );
