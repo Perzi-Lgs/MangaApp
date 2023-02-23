@@ -7,17 +7,17 @@ abstract class DownloadEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetDownloadedMangaInfos extends DownloadEvent {
-  const GetDownloadedMangaInfos();
+class GetDownloadedMangaList extends DownloadEvent {
+  const GetDownloadedMangaList();
 
   @override
   List<Object> get props => [];
 }
 
 class GetDownloadedChaptersList extends DownloadEvent {
-  const GetDownloadedChaptersList({required this.url});
+  const GetDownloadedChaptersList({required this.name});
 
-  final String url;
+  final String name;
 
   @override
   List<Object> get props => [];
@@ -33,11 +33,12 @@ class LaunchChaptersDownload extends DownloadEvent {
   List<Object> get props => [];
 }
 
-// class GetDownloadChapter extends Equatable {
-//   const GetDownloadChaptersList({required this.mangaUrl});
+class GetDownloadedChaptersData extends DownloadEvent {
+  const GetDownloadedChaptersData({required this.chapter, required this.mangaName});
 
-//   final String mangaUrl;
+  final String chapter;
+  final String mangaName;
 
-//   @override
-//   List<Object> get props => [];
-// }
+  @override
+  List<Object> get props => [];
+}

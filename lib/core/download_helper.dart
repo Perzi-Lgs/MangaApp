@@ -19,9 +19,3 @@ void saveFile(String path, List<int> rawData) async {
   await file.create(recursive: true);
   file.writeAsBytes(rawData);
 }
-
-// void readFile() async {
-//   File file = File(await getFilePath()); // 1
-//   String fileContent = await file.readAsString(); // 2
-
-// }

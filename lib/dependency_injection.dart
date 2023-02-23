@@ -4,13 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/data/data_sources/manga_info_page_remote_data_source.dart';
 import 'package:mobile/domain/repositories/download_repository.dart';
 import 'package:mobile/domain/usecases/Download/download_chapter.dart';
+import 'package:mobile/domain/usecases/Download/get_downloaded_manga_chapters.dart';
 import 'package:mobile/domain/usecases/get_manga_full_info.dart';
 import 'package:mobile/domain/repositories/search_repository.dart';
 import 'package:mobile/presentation/bloc/download_bloc/download_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/network.dart';
-import 'data/data_sources/download_data_sources/download_local_data_souce.dart';
+import 'data/data_sources/download_data_sources/download_data_source.dart';
 import 'data/data_sources/homepage_remote_data_source.dart';
 import 'data/data_sources/search_data_sources/search_local_datasource.dart';
 import 'data/data_sources/search_data_sources/search_remote_datasource.dart';
@@ -22,6 +23,8 @@ import 'domain/repositories/manga_info_repository.dart';
 import 'data/data_sources/scan_manga_remote_datasource.dart';
 import 'data/repositories/scan_manga_repository_impl.dart';
 import 'domain/repositories/scan_manga_repository.dart';
+import 'domain/usecases/Download/get_downloaded_chapter_data.dart';
+import 'domain/usecases/Download/get_downloaded_mangas.dart';
 import 'domain/usecases/delete_search_in_history.dart';
 import 'domain/usecases/get_homepage_scans.dart';
 import 'domain/usecases/get_list_manga_per_sources.dart';
@@ -40,7 +43,11 @@ Future<void> init() async {
   sl.registerFactory(() => HomepageBloc(getHomepageScans: sl()));
   sl.registerFactory(() => MangaInfoBloc(getFullMangaInfo: sl()));
   sl.registerFactory(() => MangareaderBloc(getMangaScan: sl()));
-  sl.registerFactory(() => DownloadBloc(downloadChapter: sl()));
+  sl.registerFactory(() => DownloadBloc(
+      downloadChapter: sl(),
+      getDownloadedManga: sl(),
+      getDownloadedMangaChapters: sl(),
+      getDownloadedChapterData: sl()));
   sl.registerFactory(() => SearchBloc(
       getResearchScans: sl(),
       deleteSearchInHistory: sl(),
@@ -55,6 +62,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DeleteSearchInHistory(sl()));
   sl.registerLazySingleton(() => GetSearchHistory(sl()));
   sl.registerLazySingleton(() => DownloadChapter(sl()));
+  sl.registerLazySingleton(() => GetDownloadedManga(sl()));
+  sl.registerLazySingleton(() => GetDownloadedMangaChapters(sl()));
+  sl.registerLazySingleton(() => GetDownloadedChapterData(sl()));
 
   //repository
   sl.registerLazySingleton<HomepageRepository>(

@@ -24,8 +24,11 @@ class ListDownloadedChaptersPage extends StatelessWidget {
         body: MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) =>
-                  DownloadBloc(downloadChapter: sl())..add(GetDownloadedChaptersList(url: info.url)),
+              create: (context) => DownloadBloc(
+                  downloadChapter: sl(),
+                  getDownloadedManga: sl(),
+                  getDownloadedMangaChapters: sl(),
+                  getDownloadedChapterData: sl()),
             ),
             BlocProvider(
               create: (context) => ListSelectorCubit(scansData.length),
