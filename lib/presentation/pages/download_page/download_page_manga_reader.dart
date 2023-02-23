@@ -55,7 +55,7 @@ class DownloadedMangaReaderBody extends StatelessWidget {
               scrollPhysics: BouncingScrollPhysics(),
               // Set the background color to the "classic white"
               backgroundDecoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
+                color: Colors.black,
               ),
               // loadingChild: Center(
               //   child: CircularProgressIndicator(),
