@@ -9,7 +9,6 @@ import '../../widgets/manga_info/manga_info_list_chapter_button.dart';
 import '../../widgets/manga_info/manga_info_page_selector.dart';
 import '../../widgets/manga_info/manga_info_summary.dart';
 
-
 class MangaInfoPageBody extends StatelessWidget {
   const MangaInfoPageBody({
     Key? key,
@@ -20,28 +19,34 @@ class MangaInfoPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MangaInfoBloc, MangaInfoState>(
-      builder: (context, state) {
-        if (state.status == MangaInfoStateStatus.success)
-          return DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: 1,
-            minChildSize: 0.9,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                color: CustomColors.darkGrey,
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: MangaInfoPageData(state: state),
-                ),
-              );
-            },
-          );
-        else
-          return Container(
-            color: CustomColors.darkGrey,
-          );
-      },
+    return SafeArea(
+      child: BlocBuilder<MangaInfoBloc, MangaInfoState>(
+        builder: (context, state) {
+          if (state.status == MangaInfoStateStatus.success)
+            return DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 1,
+              minChildSize: 0.8,
+              builder:
+                  (BuildContext context, ScrollController scrollController) {
+                return Container(
+                  color: CustomColors.darkGrey,
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: MangaInfoPageData(
+                      state: state,
+                      info: info,
+                    ),
+                  ),
+                );
+              },
+            );
+          else
+            return Container(
+              color: CustomColors.darkGrey,
+            );
+        },
+      ),
     );
   }
 }
@@ -49,19 +54,23 @@ class MangaInfoPageBody extends StatelessWidget {
 class MangaInfoPageData extends StatelessWidget {
   const MangaInfoPageData({
     required this.state,
+    required this.info,
     Key? key,
   }) : super(key: key);
 
   final MangaInfoState state;
+  final MangaInfo info;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.network(
-          state.info.img,
-          headers: {'Referer': 'https://readmanganato.com/'},
-          fit: BoxFit.cover,
+        Container(
+          child: Image.network(
+            state.info.img,
+            headers: {'Referer': 'https://readmanganato.com/'},
+            fit: BoxFit.scaleDown,
+          ),
         ),
         // Manga name
         Container(
@@ -76,14 +85,14 @@ class MangaInfoPageData extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 5),
           child: Text(
-            state.info.author + ' · ' + state.info.status,
+            state.info.author.label + ' · ' + state.info.status,
             style: TextStyle(color: Colors.grey),
             overflow: TextOverflow.ellipsis,
           ),
         ),
         MangaInfoPageSelector(state: state),
         MangaInfoDivider(),
-        MangaInfoListChapterButton(state: state),
+        MangaInfoListChapterButton(state: state, info: info),
         MangaInfoDivider(),
         SummaryMangaInfo(state: state)
       ],

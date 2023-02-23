@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/manga_info.dart';
 import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
+import '../../pages/manga_list_chapters/manga_downloaded_list_chapters.dart';
 import '../../pages/manga_list_chapters/manga_list_chapters.dart';
-
 
 class MangaInfoListChapterButton extends StatelessWidget {
   const MangaInfoListChapterButton({
     Key? key,
     required this.state,
+    required this.info,
   }) : super(key: key);
 
   final MangaInfoState state;
+  final MangaInfo info;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,22 @@ class MangaInfoListChapterButton extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: Icon(Icons.file_download_outlined),
+                      child: IconButton(
+                        icon: Icon(Icons.file_download_outlined),
+                        onPressed: () async {
+                          final res = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListDownloadedChaptersPage(
+                                          info: info,
+                                          scansData: state.info.scans)));
+                          final success = SnackBar(
+                              content: const Text('Success downloading!'));
+
+                          ScaffoldMessenger.of(context).showSnackBar(success);
+                        },
+                      ),
                     ),
                     Icon(Icons.more_horiz)
                   ],

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/manga_info_model.dart';
 
+
 abstract class HomepageRemoteDataSource {
   Future<List<MangaInfoModel>> getListMangaInfoPerSource(String source);
   Future<List<MangaInfoModel>> getHomepageScans(String route, int page);
@@ -57,7 +58,6 @@ class HomepageRemoteDataSourceImpl implements HomepageRemoteDataSource {
           // 'Authorization': 'token a recup'
         }
       ).timeout(const Duration(seconds: 5));
-      print(response);
     } catch (e) {
       throw ServerException(timeoutServerError);
     }

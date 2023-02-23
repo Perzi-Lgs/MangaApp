@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobile/domain/repositories/homepage_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases.dart';
 import '../entities/manga_info.dart';
+import '../repositories/homepage_repository.dart';
 
 class GetListMangaPerSource extends UseCase<List<MangaInfo>, Params> {
   final HomepageRepository repository;

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/complete_manga_info_model.dart';
 
+
 abstract class MangaInfoPageRemoteDatasource {
   Future<CompleteMangaInfoModel> getMangaInfoPage(String url);
 }

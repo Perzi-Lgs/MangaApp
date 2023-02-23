@@ -1,3 +1,5 @@
+import 'package:mobile/domain/entities/searchableField.dart';
+
 import '../../domain/entities/complete_manga_info.dart';
 import 'chapter_model.dart';
 
@@ -6,8 +8,8 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
     required String img, //urlimg
     required String name, //urlimg
     required String description, //urlimg
-    required String author, //urlimg
-    required List<String> genre, //urlimg
+    required SearchableField author, //urlimg
+    required List<SearchableField> genre, //urlimg
     required String update, //urlimg
     required String status, //urlimg
     required List<ChapterModel> scans,
@@ -22,16 +24,15 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
             status: status);
 
   factory CompleteMangaInfoModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     List<ChapterModel> _chapters =
         (json['scans'] as List).map((e) => ChapterModel.fromJson(e)).toList();
 
     return CompleteMangaInfoModel(
       img: json['img'] ?? '',
       name: json['name'] ?? '',
-      author: json['author'] ?? '',
+      author: SearchableField.fromJson(json['author']),
       description: json['description'] ?? '',
-      genre: List.from(json['genre']),
+      genre: List.generate((json['genre'] ?? []).length, (index) => SearchableField.fromJson(json['genre'][index])),
       scans: _chapters,
       update: json['update'] ?? '',
       status: json['status'] ?? '',
