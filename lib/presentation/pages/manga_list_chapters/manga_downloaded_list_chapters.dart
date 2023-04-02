@@ -20,7 +20,7 @@ class ListDownloadedChaptersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MangaAppBar(title: "Manga Rock"),
+        appBar: MangaAppBar(),
         body: MultiBlocProvider(
           providers: [
             BlocProvider(

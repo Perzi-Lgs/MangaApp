@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomColors {
-  static const Color darkGrey = Color(0xff212121);
+  static const Color darkGrey = Color(0xff121212);
   static const Color lightGrey = Color(0xff747474);
   static const Color buttonGrey = Color(0xff3B3B3B);
   static const Color lightPurple = Colors.purple;

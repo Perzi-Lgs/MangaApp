@@ -4,16 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../presentation/bloc/search_bloc/search_bloc.dart';
 import '../../presentation/pages/search_pages/search_page.dart';
 
-
 class MangaAppBar extends StatelessWidget with PreferredSizeWidget {
-  final String title;
-
-  const MangaAppBar({required this.title});
+  const MangaAppBar();
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: Theme.of(context).textTheme.headline1),
+      leading: IconButton(
+          onPressed: () => {}, icon: Icon(Icons.notifications_outlined)),
       actions: [
         IconButton(
             icon: Icon(Icons.search),
@@ -22,11 +20,12 @@ class MangaAppBar extends StatelessWidget with PreferredSizeWidget {
                       context: context,
                       delegate: CustomSearchDelegate(
                           searchBloc: BlocProvider.of<SearchBloc>(context)))
-                })
+                }),
+        IconButton(onPressed: () => {}, icon: Icon(Icons.more_vert))
       ],
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(35);
 }

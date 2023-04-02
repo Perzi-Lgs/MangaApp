@@ -12,7 +12,7 @@ class ListChaptersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MangaAppBar(title: "Manga Rock"),
+      appBar: MangaAppBar(),
       body: ListChaptersPageBody(info: info),
     );
   }

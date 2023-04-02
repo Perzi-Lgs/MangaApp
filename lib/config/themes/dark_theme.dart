@@ -3,10 +3,10 @@ import 'package:mobile/config/themes/theme_config.dart';
 
 ThemeData get darkTheme {
   return ThemeData(
+      scaffoldBackgroundColor: CustomColors.darkGrey,
       primaryColor: CustomColors.darkGrey,
       secondaryHeaderColor: CustomColors.white,
       iconTheme: IconThemeData(color: CustomColors.mainBlue),
-      scaffoldBackgroundColor: Colors.black,
       fontFamily: 'Roboto',
       inputDecorationTheme: InputDecorationTheme(
         border: InputBorder.none,
@@ -52,9 +52,7 @@ ThemeData get darkTheme {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         buttonColor: CustomColors.lightPurple,
       ),
-      appBarTheme: AppBarTheme(
-        color: CustomColors.darkGrey,
-      ),
+      appBarTheme: AppBarTheme(color: CustomColors.darkGrey, elevation: 0),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: CustomColors.darkGrey,
           selectedItemColor: CustomColors.mainBlue,

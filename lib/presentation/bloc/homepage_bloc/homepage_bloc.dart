@@ -22,8 +22,8 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     try {
       emit(state.copyWith(status: HomepageStatus.loading));
 
-      final scansHomePage =
-          await getHomepageScans(Params(route: _tabsConverter(state.tab)));
+      final scansHomePage = await getHomepageScans(Params(route: _tabsConverter(state.tab)));
+      
       scansHomePage.fold(
           (l) => emit(state.copyWith(status: HomepageStatus.failure)),
           (r) =>

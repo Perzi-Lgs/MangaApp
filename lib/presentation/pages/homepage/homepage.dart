@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<NavbarCubit, int>(
       bloc: context.read<NavbarCubit>(),
       builder: (context, state) {
-        return HomePageBody();
+        return HomepageBody();
       },
     );
   }
