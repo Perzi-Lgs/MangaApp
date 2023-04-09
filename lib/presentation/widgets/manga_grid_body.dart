@@ -17,12 +17,15 @@ class GridMangaBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                info.img,
-                headers: {'Referer': 'https://readmanganato.com/'},
-                fit: BoxFit.cover,
+            child: Hero(
+              tag: info.img,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  info.img,
+                  headers: {'Referer': 'https://readmanganato.com/'},
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

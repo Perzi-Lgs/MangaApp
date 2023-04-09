@@ -7,10 +7,11 @@ import 'gradient_circular_indicator.dart';
 
 class CustomExtendIndicator extends StatefulWidget {
   final Widget child;
+  final Function onRefresh;
 
   const CustomExtendIndicator({
     Key? key,
-    required this.child,
+    required this.child, required this.onRefresh,
   }) : super(key: key);
 
   @override
@@ -27,7 +28,7 @@ class _CustomExtendIndicatorState extends State<CustomExtendIndicator>
   Widget build(BuildContext context) {
     return CustomRefreshIndicator(
       offsetToArmed: _indicatorSize,
-      onRefresh: () => Future.delayed(const Duration(seconds: 0)),
+      onRefresh: () => widget.onRefresh(),
       child: widget.child,
       completeStateDuration: const Duration(milliseconds: 500),
       builder: (

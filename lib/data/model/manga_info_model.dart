@@ -10,7 +10,6 @@ class MangaInfoModel extends MangaInfo {
   }) : super(img: img, url: url, name: name, author: author);
 
   factory MangaInfoModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return MangaInfoModel(
       url: json['url'],
       img: json['img'],

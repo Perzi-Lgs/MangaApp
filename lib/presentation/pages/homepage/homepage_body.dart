@@ -1,8 +1,7 @@
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:gradient_progress_indicator/widget/gradient_progress_indicator_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../../config/themes/theme_config.dart';
@@ -10,19 +9,21 @@ import '../../../core/errors/failures.dart';
 import '../../../domain/entities/manga_info.dart';
 import '../../../domain/usecases/get_homepage_scans.dart';
 import '../../widgets/gradient_circular_indicator/custom_refresh_indicator.dart';
-import '../../widgets/gradient_circular_indicator/gradient_circular_indicator.dart';
 import '../../widgets/manga_grid_body.dart';
 
 class HomepageBody extends StatefulWidget {
+  final int index;
+
+  const HomepageBody({Key? key, required this.index}) : super(key: key);
+
   @override
   _HomepageBodyState createState() => _HomepageBodyState();
 }
 
-class _HomepageBodyState extends State<HomepageBody> {
-  static const _pageSize = 20;
-
+class _HomepageBodyState extends State<HomepageBody> with AutomaticKeepAliveClientMixin {
+  static const _pageSize = 24;
+  int index = 0;
   List<String> pageRoute = ['hot', 'home', 'favorite', 'newest'];
-  int index = 1;
 
   final PagingController<int, MangaInfo> _pagingController =
       PagingController(firstPageKey: 0);
@@ -37,6 +38,7 @@ class _HomepageBodyState extends State<HomepageBody> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
+      print(index);
       GetHomepageScans fetchHomepageManga = GetHomepageScans(sl());
       final newItems = await fetchHomepageManga(
           Params(route: pageRoute[index], page: pageKey));
@@ -47,6 +49,9 @@ class _HomepageBodyState extends State<HomepageBody> {
           _pagingController.appendLastPage(r);
         } else {
           final nextPageKey = pageKey + r.length;
+          if (nextPageKey == 24) {
+            _pagingController.itemList = [];
+          }
           _pagingController.appendPage(r, nextPageKey);
         }
       });
@@ -57,9 +62,10 @@ class _HomepageBodyState extends State<HomepageBody> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return DefaultTabController(
       length: 4,
-      initialIndex: 1,
+      initialIndex: 0,
       child: Column(children: [
         Container(
           height: 50,
@@ -73,11 +79,12 @@ class _HomepageBodyState extends State<HomepageBody> {
                 Tab(text: "Favorite"),
                 Tab(text: "Newest"),
               ],
+
               onTap: (int i) {
                 setState(() {
                   index = i;
                 });
-                _pagingController.refresh();
+                _fetchPage(0);
               },
               physics: NeverScrollableScrollPhysics(),
               splashFactory: NoSplash.splashFactory,
@@ -117,6 +124,11 @@ class _HomepageBodyState extends State<HomepageBody> {
     final double itemWidth = size.width / 2;
 
     return ((CustomExtendIndicator(
+      onRefresh: () {
+        return Future.sync(
+          () => _pagingController.refresh(),
+        );
+      },
       child: PagedGridView<int, MangaInfo>(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: size.width / 3,
@@ -126,8 +138,8 @@ class _HomepageBodyState extends State<HomepageBody> {
           ),
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<MangaInfo>(
-            firstPageProgressIndicatorBuilder: (_) => Container(),
-            newPageProgressIndicatorBuilder: (_) => Container(),
+              firstPageProgressIndicatorBuilder: (_) => Container(),
+              newPageProgressIndicatorBuilder: (_) => Container(),
               itemBuilder: (context, item, index) =>
                   buildCardView(context, item))),
     )));
@@ -142,4 +154,7 @@ class _HomepageBodyState extends State<HomepageBody> {
   Widget buildCardView(BuildContext context, MangaInfo info) {
     return (GridMangaBody(info: info));
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
