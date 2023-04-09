@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/manga_info.dart';
 import '../pages/manga_info_page/manga_info_page.dart';
 
-class GridMangaData extends StatelessWidget {
+class GridMangaBody extends StatelessWidget {
   final MangaInfo info;
 
-  const GridMangaData({Key? key, required this.info}) : super(key: key);
+  const GridMangaBody({Key? key, required this.info}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +17,25 @@ class GridMangaData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: Image.network(
-              info.img,
-              headers: {'Referer': 'https://readmanganato.com/'},
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                info.img,
+                headers: {'Referer': 'https://readmanganato.com/'},
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Container(
-            height: 45,
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              info.name,
-              style: TextStyle(color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
-          )
+          // Container(
+          //   height: 45,
+          //   padding: EdgeInsets.symmetric(vertical: 5),
+          //   child: Text(
+          //     info.name,
+          //     style: TextStyle(color: Colors.grey),
+          //     overflow: TextOverflow.ellipsis,
+          //     maxLines: 2,
+          //   ),
+          // )
         ],
       )),
     ));

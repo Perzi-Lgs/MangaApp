@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../bloc/search_bloc/search_bloc.dart';
-import '../manga_grid_data.dart';
+import '../manga_grid_body.dart';
 
 class SearchResultDisplay extends StatelessWidget {
   const SearchResultDisplay({
@@ -26,7 +26,7 @@ class SearchResultDisplay extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 if (state.status.isSuccess)
-                  return GridMangaData(info: state.infos[index]);
+                  return GridMangaBody(info: state.infos[index]);
                 else if (state.status.isLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
