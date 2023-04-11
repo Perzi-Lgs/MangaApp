@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:mobile/domain/entities/searchableField.dart';
 
 import '../../domain/entities/complete_manga_info.dart';
@@ -13,6 +15,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
     required String update, //urlimg
     required String status, //urlimg
     required List<ChapterModel> scans,
+    required Color color,
   }) : super(
             img: img,
             name: name,
@@ -21,7 +24,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
             genre: genre,
             update: update,
             scans: scans,
-            status: status);
+            status: status, color: color);
 
   factory CompleteMangaInfoModel.fromJson(Map<String, dynamic> json) {
     List<ChapterModel> _chapters =
@@ -36,6 +39,7 @@ class CompleteMangaInfoModel extends CompleteMangaInfo {
       scans: _chapters,
       update: json['update'] ?? '',
       status: json['status'] ?? '',
+      color: Color.fromARGB(0, 0, 0, 0),
     );
   }
 

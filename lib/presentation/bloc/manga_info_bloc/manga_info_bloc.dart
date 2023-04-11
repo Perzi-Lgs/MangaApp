@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../domain/usecases/get_manga_full_info.dart';
 import '../../../domain/entities/complete_manga_info.dart';
@@ -28,4 +29,6 @@ class MangaInfoBloc extends Bloc<MangainfoEvent, MangaInfoState> {
       emit(state.copyWith(status: MangaInfoStateStatus.failure));
     }
   }
+
+  
 }
