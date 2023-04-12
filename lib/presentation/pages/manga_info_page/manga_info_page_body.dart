@@ -41,7 +41,10 @@ class MangaInfoPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MangaInfoBloc, MangaInfoState>(
       builder: (context, state) {
-        return Scaffold(body: MangaInfoPageData(state: state, info: info));
+        return Scaffold(
+          body: MangaInfoPageData(state: state, info: info),
+          backgroundColor: info.color,
+        );
       },
     );
   }
@@ -56,7 +59,7 @@ class MangaInfoPageData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: state.info.color,
+      color: info.color,
       child: ChapterBottomSheet(info: info, state: state),
     );
   }
@@ -161,7 +164,7 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                         children: [
                           Container(
                               decoration: BoxDecoration(
-                                color: widget.state.info.color,
+                                color: widget.info.color,
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -172,12 +175,13 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                                             widget.state.info.scans.length,
                                         controller: scrollController,
                                         itemBuilder: ((context, index) {
-                                          return widget.state.info.scans.length == 0
+                                          return widget.state.info.scans.length ==
+                                                  0
                                               ? Container()
                                               : TextButton(
                                                   style: TextButton.styleFrom(
-                                                      backgroundColor: widget
-                                                          .state.info.color),
+                                                      backgroundColor:
+                                                          widget.info.color),
                                                   onPressed: () => Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -189,15 +193,14 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                                                                   index:
                                                                       index))),
                                                   child: MangaChapterList(
-                                                      color: widget
-                                                          .state.info.color,
-                                                      scan:
-                                                          widget.state.info.scans[index]));
+                                                      color: widget.info.color,
+                                                      scan: widget.state.info
+                                                          .scans[index]));
                                         }))
                                     : MangaChapterGrid(
                                         controller: scrollController,
                                         manga: widget.state.info,
-                                        color: widget.state.info.color),
+                                        color: widget.info.color),
                               )),
                           ToggleIcon(
                               opacity: (percent - 0.80) / 0.20,
@@ -311,7 +314,8 @@ class ResumeChapterButton extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MangaReader(info: info, index: info.scans.length - 1)));
+                      builder: (context) => MangaReader(
+                          info: info, index: info.scans.length - 1)));
             }
           },
           child: Text(
@@ -453,104 +457,121 @@ class _MangaPageInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Image.network(
-                    data.img,
-                    headers: {'Referer': 'https://readmanganato.com/'},
-                    fit: BoxFit.cover,
-                  ).image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Container(
-                  width: 500,
-                  height: 420,
-                  decoration:
-                      BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(0, -informationTranslation),
-              child: AnimatedOpacity(
-                duration: 10.ms,
-                opacity: opacityMain,
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Image.network(
-                      data.img,
-                      headers: {'Referer': 'https://readmanganato.com/'},
-                      fit: BoxFit.scaleDown,
+        Flexible(
+          flex: 3,
+          child: Container(
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Image.network(
+                        data.img,
+                        headers: {'Referer': 'https://readmanganato.com/'},
+                        fit: BoxFit.cover,
+                      ).image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                    child: Container(
+                      width: 500,
+                      height: 420,
+                      decoration:
+                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
                     ),
                   ),
                 ),
-              ),
-            ),
-            AnimatedOpacity(
-              duration: 100.ms,
-              opacity: 1 - opacityMain,
-              child: Container(
-                color: state.info.color,
-                width: maxWidth,
-                height: 440,
-              ),
-            ),
-            AnimatedOpacity(
-              duration: 100.ms,
-              opacity: opacityMain,
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_outlined, color: Colors.white)),
-            )
-          ],
-        ),
-        Transform.translate(
-          offset: Offset(0, -informationTranslation),
-          child: AnimatedOpacity(
-            duration: 10.ms,
-            opacity: opacitySec,
-            child: FractionallySizedBox(
-              widthFactor: 0.9,
-              child: TextScroll(
-                data.name + '    ',
-                fadedBorder: true,
-                fadedBorderWidth: 0.1,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 27,
-                  fontWeight: FontWeight.w500,
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Transform.translate(
+                    offset: Offset(0, -informationTranslation),
+                    child: AnimatedOpacity(
+                      duration: 10.ms,
+                      opacity: opacityMain,
+                      child: Center(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 50),
+                          child: Image.network(
+                            data.img,
+                            headers: {'Referer': 'https://readmanganato.com/'},
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                delayBefore: Duration(seconds: 1),
-                velocity: Velocity(pixelsPerSecond: Offset(40, 0)),
-                intervalSpaces: 10,
+                AnimatedOpacity(
+                  duration: 100.ms,
+                  opacity: 1 - opacityMain,
+                  child: Container(
+                    color: data.color,
+                    width: maxWidth,
+                    height: 440,
+                  ),
+                ),
+                AnimatedOpacity(
+                  duration: 100.ms,
+                  opacity: opacityMain,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.arrow_back_outlined, color: Colors.white)),
+                )
+              ],
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Transform.translate(
+            offset: Offset(0, -informationTranslation),
+            child: AnimatedOpacity(
+              duration: 10.ms,
+              opacity: opacitySec,
+              child: FractionallySizedBox(
+                widthFactor: 0.9,
+                child: TextScroll(
+                  data.name + '    ',
+                  fadedBorder: true,
+                  fadedBorderWidth: 0.1,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  delayBefore: Duration(seconds: 1),
+                  velocity: Velocity(pixelsPerSecond: Offset(40, 0)),
+                  intervalSpaces: 10,
+                ),
               ),
             ),
           ),
         ),
-        Transform.translate(
-          offset: Offset(0, -informationTranslation),
-          child: AnimatedOpacity(
-            duration: 10.ms,
-            opacity: opacitySec,
-            child: FractionallySizedBox(
-              widthFactor: 0.9,
-              child: Text(
-                data.author.label + ' · ' + state.info.status,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300),
-                overflow: TextOverflow.ellipsis,
+        Flexible(
+          flex: 1,
+          child: Transform.translate(
+            offset: Offset(0, -informationTranslation),
+            child: AnimatedOpacity(
+              duration: 10.ms,
+              opacity: opacitySec,
+              child: FractionallySizedBox(
+                widthFactor: 0.9,
+                child: Text(
+                  data.author.label + ' · ' + state.info.status,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
