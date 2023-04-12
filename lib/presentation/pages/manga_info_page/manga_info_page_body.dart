@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/settings/duration_extention.dart';
 import 'package:mobile/domain/entities/chapter.dart';
+import 'package:mobile/domain/entities/complete_manga_info.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 import '../../../domain/entities/manga_info.dart';
 import '../../bloc/manga_info_bloc/manga_info_bloc.dart';
+import '../manga_reader/manga_reader_page.dart';
 
 String extractChapterNumber(String input) {
   RegExp chapterNumberRegex = RegExp(r'\bChapter\s*(\d+)');
@@ -170,26 +172,31 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                                             widget.state.info.scans.length,
                                         controller: scrollController,
                                         itemBuilder: ((context, index) {
-                                          return widget.state.info.scans
-                                                      .length ==
-                                                  0
+                                          return widget.state.info.scans.length == 0
                                               ? Container()
                                               : TextButton(
-                                                  style: TextButton
-                                                      .styleFrom(
-                                                          backgroundColor:
-                                                              widget.state.info
-                                                                  .color),
-                                                  onPressed: () {},
+                                                  style: TextButton.styleFrom(
+                                                      backgroundColor: widget
+                                                          .state.info.color),
+                                                  onPressed: () => Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MangaReader(
+                                                                  info: widget
+                                                                      .state
+                                                                      .info,
+                                                                  index:
+                                                                      index))),
                                                   child: MangaChapterList(
                                                       color: widget
                                                           .state.info.color,
-                                                      scan: widget.state.info
-                                                          .scans[index]));
+                                                      scan:
+                                                          widget.state.info.scans[index]));
                                         }))
                                     : MangaChapterGrid(
                                         controller: scrollController,
-                                        scan: widget.state.info.scans,
+                                        manga: widget.state.info,
                                         color: widget.state.info.color),
                               )),
                           ToggleIcon(
@@ -202,6 +209,7 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                           }),
                           ResumeChapterButton(
                             topMargin: headerTopMargin ?? 0,
+                            info: widget.state.info,
                           )
                           // 0.75 = 0
                           // 1 = 1
@@ -283,8 +291,10 @@ class ToggleIcon extends StatelessWidget {
 
 class ResumeChapterButton extends StatelessWidget {
   final double topMargin;
+  final CompleteMangaInfo info;
 
-  const ResumeChapterButton({Key? key, required this.topMargin})
+  const ResumeChapterButton(
+      {Key? key, required this.topMargin, required this.info})
       : super(key: key);
 
   @override
@@ -296,7 +306,14 @@ class ResumeChapterButton extends StatelessWidget {
       child: Container(
         height: 50,
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            if (info.scans.length != 0) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MangaReader(info: info, index: info.scans.length - 1)));
+            }
+          },
           child: Text(
             'Read first chapter',
             style: TextStyle(color: Colors.white),
@@ -313,12 +330,12 @@ class ResumeChapterButton extends StatelessWidget {
 }
 
 class MangaChapterGrid extends StatelessWidget {
-  final List<Chapter> scan;
+  final CompleteMangaInfo manga;
   final Color color;
   final ScrollController controller;
   const MangaChapterGrid(
       {Key? key,
-      required this.scan,
+      required this.manga,
       required this.color,
       required this.controller})
       : super(key: key);
@@ -326,33 +343,38 @@ class MangaChapterGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: color,
       width: MediaQuery.of(context).size.width,
       child: FractionallySizedBox(
         widthFactor: 0.95,
         child: GridView.count(
           controller: controller,
           crossAxisCount: 3,
-          children: [for (var i = 0; i < scan.length; i++) _buildCard(scan[i])],
+          children: [
+            for (var i = 0; i < manga.scans.length; i++)
+              _buildCard(context, manga, i)
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildCard(Chapter scan) {
+  Widget _buildCard(BuildContext context, CompleteMangaInfo info, int index) {
     return Container(
         width: 100,
         height: 100,
         child: TextButton(
-          onPressed: () {  },
-          style: TextButton.styleFrom(
-            
-          ),
+          style: TextButton.styleFrom(backgroundColor: color),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MangaReader(info: info, index: index))),
           child: Column(
             children: [
               Container(height: 70, child: Placeholder()),
               Expanded(
                   child: TextScroll(
-                extractChapterNumber(scan.name),
+                extractChapterNumber(manga.scans[index].name),
                 velocity: Velocity(pixelsPerSecond: Offset(40, 0)),
                 numberOfReps: 3,
                 style: TextStyle(color: Colors.white),
@@ -486,7 +508,6 @@ class _MangaPageInformation extends StatelessWidget {
               opacity: opacityMain,
               child: IconButton(
                   onPressed: () {
-                    print('plopi');
                     Navigator.pop(context);
                   },
                   icon: Icon(Icons.arrow_back_outlined, color: Colors.white)),
