@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:mobile/domain/entities/searchableField.dart';
 
 import 'chapter.dart';
@@ -12,9 +13,11 @@ class CompleteMangaInfo extends Equatable {
   final String update; //urlimg
   final String status; //urlimg
   final List<Chapter> scans; //urlimg
+  final Color color;
 
   CompleteMangaInfo(
-      {required this.img,
+      {required this.color,
+      required this.img,
       required this.name,
       required this.description,
       required this.author,
@@ -24,15 +27,15 @@ class CompleteMangaInfo extends Equatable {
       required this.status});
 
   static final empty = CompleteMangaInfo(
-    img: '',
-    name: '',
-    author: SearchableField.empty(),
-    description: '',
-    genre: [],
-    scans: [],
-    update: '',
-    status: '',
-  );
+      img: '',
+      name: '',
+      author: SearchableField.empty(),
+      description: '',
+      genre: [],
+      scans: [],
+      update: '',
+      status: '',
+      color: Colors.black);
 
   CompleteMangaInfo copyWith({
     String? img,
@@ -43,8 +46,10 @@ class CompleteMangaInfo extends Equatable {
     String? update,
     String? status,
     List<Chapter>? scans,
+    Color? color,
   }) {
     return CompleteMangaInfo(
+        color: color ?? this.color,
         img: img ?? this.img,
         name: name ?? this.name,
         author: author ?? this.author,
@@ -65,5 +70,6 @@ class CompleteMangaInfo extends Equatable {
         scans,
         update,
         status,
+        color,
       ];
 }

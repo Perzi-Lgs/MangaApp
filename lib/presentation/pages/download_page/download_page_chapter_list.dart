@@ -23,7 +23,7 @@ class DownaloadedListChaptersPage extends StatelessWidget {
           ..add(GetDownloadedChaptersList(name: mangaName)),
         child: Scaffold(
           body: DownaloadedListChaptersPageBody(mangaName: mangaName),
-          appBar: MangaAppBar(title: "Manga Rock"),
+          appBar: MangaAppBar(),
         ));
   }
 }

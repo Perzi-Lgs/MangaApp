@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../../domain/entities/manga_info.dart';
@@ -14,15 +13,13 @@ class MangaInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavbarCubit, int>(
-      bloc: context.read<NavbarCubit>(),
-      builder: (context, state) {
-        return BlocProvider(
-          create: (context) => MangaInfoBloc(getFullMangaInfo: sl())
-            ..add(FetchMangaInfo(url: info.url)),
-          child: MangaInfoPageBody(info: info),
-        );
-      },
+    return Hero(
+      tag: info.img,
+      child: BlocProvider(
+        create: (context) => MangaInfoBloc(getFullMangaInfo: sl())
+          ..add(FetchMangaInfo(url: info.url)),
+        child: MangaInfoPageBody(info: info),
+      ),
     );
   }
 }
