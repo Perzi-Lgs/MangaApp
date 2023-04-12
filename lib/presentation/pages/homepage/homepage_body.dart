@@ -107,14 +107,10 @@ class _HomepageBodyState extends State<HomepageBody> with AutomaticKeepAliveClie
   }
 
   late List<Widget> children = [
-    // Test(),
-    // Scaffold(body: HomePage()),
     _pageRefresher(),
     _pageRefresher(),
     Container(color: CustomColors.darkGrey),
     _pageRefresher(),
-    // MangaGrid(),
-    // Container(color: Colors.purple[100]),
   ];
 
   Widget _pageRefresher() {

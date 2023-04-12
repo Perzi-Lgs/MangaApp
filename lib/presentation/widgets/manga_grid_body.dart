@@ -43,14 +43,4 @@ class GridMangaBody extends StatelessWidget {
       )),
     ));
   }
-
-  void _showSheet(BuildContext context, MangaInfo info) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true, // set this to true
-      builder: (_) {
-        return MangaInfoPage(info: info);
-      },
-    );
-  }
 }
