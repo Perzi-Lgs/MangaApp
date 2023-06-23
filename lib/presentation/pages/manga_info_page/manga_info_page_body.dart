@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/settings/duration_extention.dart';
 import 'package:mobile/domain/entities/chapter.dart';
 import 'package:mobile/domain/entities/complete_manga_info.dart';
+import 'package:mobile/presentation/bloc/favorite_cubit/favorite_cubit.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 import '../../../domain/entities/manga_info.dart';
@@ -523,8 +524,23 @@ class _MangaPageInformation extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back_outlined, color: Colors.white)),
-                )
+                      icon:
+                          Icon(Icons.arrow_back_outlined, color: Colors.white)),
+                ),
+                BlocBuilder<FavoriteCubit, FavoriteState>(
+                  bloc: BlocProvider.of<FavoriteCubit>(context)..getIsFavorite(data),
+                  builder: (context, state) {
+                    return Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                          onPressed: () => context.read<FavoriteCubit>().switchFavorite(data),
+                          icon: Icon(
+                            state.isFav == false ? Icons.favorite_border : Icons.favorite,
+                            color: state.isFav == false ?Colors.white : Colors.red,
+                          )),
+                    );
+                  },
+                ),
               ],
             ),
           ),

@@ -10,7 +10,6 @@ import 'package:dartz/dartz.dart';
 import '../../domain/entities/manga_info.dart';
 import '../../domain/repositories/homepage_repository.dart';
 import '../data_sources/homepage_remote_data_source.dart';
-import '../model/manga_info_model.dart';
 
 class HomePageRepositoryImpl implements HomepageRepository {
   final HomepageRemoteDataSource remoteDataSource;

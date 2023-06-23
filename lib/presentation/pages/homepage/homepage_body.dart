@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:mobile/core/component/navbar/navbar_cubit/navbar_cubit.dart';
 
 import '../../../../../dependency_injection.dart';
 import '../../../config/themes/theme_config.dart';
@@ -10,6 +8,7 @@ import '../../../domain/entities/manga_info.dart';
 import '../../../domain/usecases/get_homepage_scans.dart';
 import '../../widgets/gradient_circular_indicator/custom_refresh_indicator.dart';
 import '../../widgets/manga_grid_body.dart';
+import '../favorite_page/favorite.dart';
 
 class HomepageBody extends StatefulWidget {
   final int index;
@@ -38,7 +37,6 @@ class _HomepageBodyState extends State<HomepageBody> with AutomaticKeepAliveClie
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      print(index);
       GetHomepageScans fetchHomepageManga = GetHomepageScans(sl());
       final newItems = await fetchHomepageManga(
           Params(route: pageRoute[index], page: pageKey));
@@ -79,7 +77,6 @@ class _HomepageBodyState extends State<HomepageBody> with AutomaticKeepAliveClie
                 Tab(text: "Favorite"),
                 Tab(text: "Newest"),
               ],
-
               onTap: (int i) {
                 setState(() {
                   index = i;
@@ -109,7 +106,7 @@ class _HomepageBodyState extends State<HomepageBody> with AutomaticKeepAliveClie
   late List<Widget> children = [
     _pageRefresher(),
     _pageRefresher(),
-    Container(color: CustomColors.darkGrey),
+    FavoritePage(),
     _pageRefresher(),
   ];
 

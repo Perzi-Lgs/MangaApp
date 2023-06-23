@@ -7,8 +7,10 @@ class MangaInfoState extends Equatable {
   final MangaInfoStateStatus status;
   final CompleteMangaInfo info;
 
-  MangaInfoState copyWith({MangaInfoStateStatus? status, CompleteMangaInfo? info}) {
-    return MangaInfoState(info: info ?? this.info, status: status ?? this.status);
+  MangaInfoState copyWith(
+      {MangaInfoStateStatus? status, CompleteMangaInfo? info}) {
+    return MangaInfoState(
+        info: info ?? this.info, status: status ?? this.status);
   }
 
   @override

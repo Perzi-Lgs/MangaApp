@@ -17,8 +17,7 @@ class MangaInfoModel extends MangaInfo {
       url: json['url'],
       img: json['img'],
       name: json['name'],
-      author: SearchableField.fromJson(json['author'] ?? SearchableField.empty()),
-
+      author: json['author'] == null ? SearchableField.empty() : SearchableField.fromJson(json['author']),
     );
   }
 
