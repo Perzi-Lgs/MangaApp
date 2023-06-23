@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:background_downloader/background_downloader.dart';
 import 'package:flutter/services.dart';

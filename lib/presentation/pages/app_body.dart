@@ -5,8 +5,6 @@ import '../../core/component/appbar.dart';
 import 'homepage/homepage.dart';
 
 List<Widget> childs = [
-  // Test(),
-  // Scaffold(body: HomePage()),
   Container(color: CustomColors.darkGrey),
   HomePage(),
   Container(color: Colors.purple[100]),
