@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile/presentation/bloc/bookmark_cubit/bookmark_cubit.dart';
 import 'package:mobile/presentation/bloc/favorite_cubit/favorite_cubit.dart';
 
 import '../../../../../dependency_injection.dart';
@@ -28,6 +29,11 @@ class MangaInfoPage extends StatelessWidget {
                 getIsFavoriteUsecase: sl(),
                 switchFavoriteUsecase: sl()),
           ),
+          BlocProvider(
+              create: (context) => BookmarkCubit(
+                  getAllReadUsecase: sl(),
+                  getLastReadUsecase: sl(),
+                  setLastReadUsecase: sl()))
         ],
         child: MangaInfoPageBody(info: info),
       ),

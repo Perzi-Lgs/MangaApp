@@ -1,12 +1,16 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/data/data_sources/bookmark_local_data_source.dart';
 import 'package:mobile/data/data_sources/manga_info_page_remote_data_source.dart';
+import 'package:mobile/domain/repositories/bookmark_repository.dart';
 import 'package:mobile/domain/repositories/download_repository.dart';
 import 'package:mobile/domain/usecases/Download/download_chapter.dart';
 import 'package:mobile/domain/usecases/Download/get_downloaded_manga_chapters.dart';
+import 'package:mobile/domain/usecases/bookmark.dart';
 import 'package:mobile/domain/usecases/get_manga_full_info.dart';
 import 'package:mobile/domain/repositories/search_repository.dart';
+import 'package:mobile/presentation/bloc/bookmark_cubit/bookmark_cubit.dart';
 import 'package:mobile/presentation/bloc/download_bloc/download_bloc.dart';
 import 'package:mobile/presentation/bloc/favorite_cubit/favorite_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +21,7 @@ import 'data/data_sources/favorite_local_data_source.dart';
 import 'data/data_sources/homepage_remote_data_source.dart';
 import 'data/data_sources/search_data_sources/search_local_datasource.dart';
 import 'data/data_sources/search_data_sources/search_remote_datasource.dart';
+import 'data/repositories/bookmark_repository_impl.dart';
 import 'data/repositories/download_repository_impl.dart';
 import 'data/repositories/favorite_repository_impl.dart';
 import 'data/repositories/homepage_repository_impl.dart';
@@ -61,6 +66,10 @@ Future<void> init() async {
       switchFavoriteUsecase: sl(),
       getIsFavoriteUsecase: sl(),
       getAllFavoriteUsecase: sl()));
+  sl.registerFactory(() => BookmarkCubit(
+      getAllReadUsecase: sl(),
+      getLastReadUsecase: sl(),
+      setLastReadUsecase: sl()));
   //usecase
   sl.registerLazySingleton(() => GetHomepageScans(sl()));
   sl.registerLazySingleton(() => GetListMangaPerSource(sl()));
@@ -76,6 +85,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SwitchFavorite(sl()));
   sl.registerLazySingleton(() => GetIsFavorite(sl()));
   sl.registerLazySingleton(() => GetAllFavorite(sl()));
+  sl.registerLazySingleton(() => GetAllRead(sl()));
+  sl.registerLazySingleton(() => GetLastRead(sl()));
+  sl.registerLazySingleton(() => SetLastRead(sl()));
 
   //repository
   sl.registerLazySingleton<HomepageRepository>(
@@ -92,6 +104,8 @@ Future<void> init() async {
       scanMangaRemoteDatasource: sl()));
   sl.registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositoryImpl(localDataSource: sl()));
+  sl.registerLazySingleton<BookmarkRepository>(
+      () => BookmarkRepositoryImpl(localDataSource: sl()));
 
   //Data Sources
   sl.registerLazySingleton<DownloadDataSource>(
@@ -108,6 +122,8 @@ Future<void> init() async {
       () => SearchLocalDataSourceImpl(sharedPreferences: sl()));
   sl.registerLazySingleton<FavoriteLocalDataSource>(
       () => FavoriteLocalDataSourceImpl(sharedPreferences: sl()));
+  sl.registerLazySingleton<BookmarkLocalDataSource>(
+      () => BookmarkLocalDataSourceImpl(sharedPreferences: sl()));
 
   //Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
