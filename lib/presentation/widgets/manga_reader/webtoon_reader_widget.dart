@@ -24,16 +24,14 @@ class WebtoonsReader extends StatelessWidget {
     return NotificationListener<OverscrollNotification>(
         onNotification: (notification) {
           if (index > 0 &&
-              notification.velocity > 0 &&
-              notification.velocity < 4000) {
+              notification.overscroll > 0 &&
+              notification.overscroll < 1) {
             context.read<BookmarkCubit>().setLastRead(data.scans[index - 1].name, data.name);
             context
                 .read<MangareaderBloc>()
                 .add(GetScans(index: index - 1, url: data.scans[index - 1].url));
           }
-          if (index < data.scans.length &&
-              notification.velocity < 0 &&
-              notification.velocity > -4000) {
+          if (index < data.scans.length && notification.overscroll < 0 && notification.overscroll > -1) {
             context
                 .read<BookmarkCubit>()
                 .setLastRead(data.scans[index + 1].name, data.name);
