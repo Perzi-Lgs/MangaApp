@@ -190,20 +190,45 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                                                         style: TextButton.styleFrom(
                                                             backgroundColor: widget
                                                                 .info.color),
-                                                        onPressed: () => Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    MangaReader(
-                                                                        info: widget
-                                                                            .state
-                                                                            .info,
-                                                                        index:
-                                                                            index))),
+                                                        onPressed: () {
+                                                          context
+                                                              .read<
+                                                                  BookmarkCubit>()
+                                                              .setLastRead(
+                                                                  widget
+                                                                      .state
+                                                                      .info
+                                                                      .scans[
+                                                                          index]
+                                                                      .name,
+                                                                  widget
+                                                                      .state
+                                                                      .info
+                                                                      .name);
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => MangaReader(
+                                                                      info: widget
+                                                                          .state
+                                                                          .info,
+                                                                      index:
+                                                                          index)));
+                                                        },
                                                         child: MangaChapterList(
-                                                            color: widget.info.color,
-                                                            hasRead: state.allRead.contains(widget.state.info.scans[index].name),
-                                                            scan: widget.state.info.scans[index]));
+                                                            color: widget
+                                                                .info.color,
+                                                            hasRead: state.allRead
+                                                                .contains(widget
+                                                                    .state
+                                                                    .info
+                                                                    .scans[
+                                                                        index]
+                                                                    .name),
+                                                            scan: widget
+                                                                .state
+                                                                .info
+                                                                .scans[index]));
                                               }));
                                         },
                                       )
@@ -430,7 +455,11 @@ class MangaChapterList extends StatelessWidget {
   final Color color;
   final bool hasRead;
 
-  const MangaChapterList({Key? key, required this.scan, required this.color, required this.hasRead})
+  const MangaChapterList(
+      {Key? key,
+      required this.scan,
+      required this.color,
+      required this.hasRead})
       : super(key: key);
 
   @override
