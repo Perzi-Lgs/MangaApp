@@ -22,7 +22,7 @@ class MangareaderBloc extends Bloc<MangareaderEvent, MangareaderState> {
       mangaScan.fold(
           (l) => emit(state.copyWith(status: MangareaderStateStatus.failure)),
           (r) => emit(state.copyWith(
-              status: MangareaderStateStatus.success, images: r)));
+              status: MangareaderStateStatus.success, images: r, index: event.index)));
     } catch (e) {
       emit(state.copyWith(status: MangareaderStateStatus.failure));
     }

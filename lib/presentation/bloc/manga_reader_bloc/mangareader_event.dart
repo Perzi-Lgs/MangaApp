@@ -8,10 +8,11 @@ abstract class MangareaderEvent extends Equatable {
 }
 
 class GetScans extends MangareaderEvent {
-  const GetScans({required this.url});
+  const GetScans({required this.index, required this.url});
   
   final String url;
+  final int index;
 
   @override
-  List<Object> get props => [url];
+  List<Object> get props => [url, index];
 }

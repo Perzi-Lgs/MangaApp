@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile/presentation/bloc/bookmark_cubit/bookmark_cubit.dart';
 import '../../../core/component/appbar.dart';
 
 import '../../../../dependency_injection.dart';
@@ -16,9 +17,19 @@ class MangaReader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MangareaderBloc(getMangaScan: sl())
-        ..add(GetScans(url: info.scans[index].url)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MangareaderBloc(getMangaScan: sl())
+            ..add(GetScans(url: info.scans[index].url, index: index)),
+        ),
+        BlocProvider(
+          create: (context) => BookmarkCubit(
+              getAllReadUsecase: sl(),
+              getLastReadUsecase: sl(),
+              setLastReadUsecase: sl()),
+        ),
+      ],
       child: Scaffold(
         body: MangaReaderBody(info: info, index: index),
       ),
