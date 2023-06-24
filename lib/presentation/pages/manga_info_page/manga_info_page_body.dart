@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/settings/duration_extention.dart';
 import 'package:mobile/domain/entities/chapter.dart';
 import 'package:mobile/domain/entities/complete_manga_info.dart';
+import 'package:mobile/presentation/bloc/bookmark_cubit/bookmark_cubit.dart';
 import 'package:mobile/presentation/bloc/favorite_cubit/favorite_cubit.dart';
 import 'package:text_scroll/text_scroll.dart';
 
@@ -171,33 +172,41 @@ class _ChapterBottomSheetState extends State<ChapterBottomSheet>
                                 padding: EdgeInsets.only(
                                     top: (headerTopMargin ?? 0) + 50),
                                 child: gridMode == false
-                                    ? ListView.builder(
-                                        itemCount:
-                                            widget.state.info.scans.length,
-                                        controller: scrollController,
-                                        itemBuilder: ((context, index) {
-                                          return widget.state.info.scans.length ==
-                                                  0
-                                              ? Container()
-                                              : TextButton(
-                                                  style: TextButton.styleFrom(
-                                                      backgroundColor:
-                                                          widget.info.color),
-                                                  onPressed: () => Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              MangaReader(
-                                                                  info: widget
-                                                                      .state
-                                                                      .info,
-                                                                  index:
-                                                                      index))),
-                                                  child: MangaChapterList(
-                                                      color: widget.info.color,
-                                                      scan: widget.state.info
-                                                          .scans[index]));
-                                        }))
+                                    ? BlocBuilder<BookmarkCubit, BookmarkState>(
+                                        bloc: BlocProvider.of<BookmarkCubit>(
+                                            context)
+                                          ..getAllRead(widget.state.info.name),
+                                        builder: (context, state) {
+                                          return ListView.builder(
+                                              itemCount: widget
+                                                  .state.info.scans.length,
+                                              controller: scrollController,
+                                              itemBuilder: ((context, index) {
+                                                return widget.state.info.scans
+                                                            .length ==
+                                                        0
+                                                    ? Container()
+                                                    : TextButton(
+                                                        style: TextButton.styleFrom(
+                                                            backgroundColor: widget
+                                                                .info.color),
+                                                        onPressed: () => Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    MangaReader(
+                                                                        info: widget
+                                                                            .state
+                                                                            .info,
+                                                                        index:
+                                                                            index))),
+                                                        child: MangaChapterList(
+                                                            color: widget.info.color,
+                                                            hasRead: state.allRead.contains(widget.state.info.scans[index].name),
+                                                            scan: widget.state.info.scans[index]));
+                                              }));
+                                        },
+                                      )
                                     : MangaChapterGrid(
                                         controller: scrollController,
                                         manga: widget.state.info,
@@ -303,33 +312,44 @@ class ResumeChapterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 10,
-      right: 10,
-      top: topMargin,
-      child: Container(
-        height: 50,
-        child: TextButton(
-          onPressed: () {
-            if (info.scans.length != 0) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MangaReader(
-                          info: info, index: info.scans.length - 1)));
-            }
-          },
-          child: Text(
-            'Read first chapter',
-            style: TextStyle(color: Colors.white),
+    return BlocBuilder<BookmarkCubit, BookmarkState>(
+      bloc: BlocProvider.of<BookmarkCubit>(context)..getLastRead(info.name),
+      builder: (context, state) {
+        return Positioned(
+          left: 10,
+          right: 10,
+          top: topMargin,
+          child: Container(
+            height: 50,
+            child: TextButton(
+              onPressed: () {
+                if (info.scans.length != 0) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    final index = info.scans.indexWhere(
+                        (element) => element.name == state.lastRead);
+                    return MangaReader(
+                        info: info,
+                        index: index < 0 ? info.scans.length - 1 : index);
+                  }));
+                }
+              },
+              child: Text(
+                state.lastRead == "Chapter 1" ||
+                        state.lastRead == "Chapter 0" ||
+                        state.lastRead == ""
+                    ? 'Read first chapter'
+                    : "Resume " + state.lastRead,
+                style: TextStyle(color: Colors.white),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white.withOpacity(0.05),
+                splashFactory: NoSplash.splashFactory,
+                shape: BeveledRectangleBorder(),
+              ),
+            ),
           ),
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.white.withOpacity(0.05),
-            splashFactory: NoSplash.splashFactory,
-            shape: BeveledRectangleBorder(),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -352,28 +372,40 @@ class MangaChapterGrid extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: FractionallySizedBox(
         widthFactor: 0.95,
-        child: GridView.count(
-          controller: controller,
-          crossAxisCount: 3,
-          children: [
-            for (var i = 0; i < manga.scans.length; i++)
-              _buildCard(context, manga, i)
-          ],
+        child: BlocBuilder<BookmarkCubit, BookmarkState>(
+          bloc: BlocProvider.of<BookmarkCubit>(context)..getAllRead(manga.name),
+          builder: (context, state) {
+            return GridView.count(
+              controller: controller,
+              crossAxisCount: 3,
+              children: [
+                for (var i = 0; i < manga.scans.length; i++)
+                  _buildCard(context, manga, i, state.allRead)
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildCard(BuildContext context, CompleteMangaInfo info, int index) {
+  Widget _buildCard(BuildContext context, CompleteMangaInfo info, int index,
+      List<String> allRead) {
     return Container(
         width: 100,
         height: 100,
         child: TextButton(
           style: TextButton.styleFrom(backgroundColor: color),
-          onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MangaReader(info: info, index: index))),
+          onPressed: () {
+            context
+                .read<BookmarkCubit>()
+                .setLastRead(info.scans[index].name, info.name);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        MangaReader(info: info, index: index)));
+          },
           child: Column(
             children: [
               Container(height: 70, child: Placeholder()),
@@ -382,7 +414,10 @@ class MangaChapterGrid extends StatelessWidget {
                 extractChapterNumber(manga.scans[index].name),
                 velocity: Velocity(pixelsPerSecond: Offset(40, 0)),
                 numberOfReps: 3,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: allRead.contains(manga.scans[index].name)
+                        ? Colors.grey
+                        : Colors.white),
               ))
             ],
           ),
@@ -393,8 +428,9 @@ class MangaChapterGrid extends StatelessWidget {
 class MangaChapterList extends StatelessWidget {
   final Chapter scan;
   final Color color;
+  final bool hasRead;
 
-  const MangaChapterList({Key? key, required this.scan, required this.color})
+  const MangaChapterList({Key? key, required this.scan, required this.color, required this.hasRead})
       : super(key: key);
 
   @override
@@ -416,7 +452,7 @@ class MangaChapterList extends StatelessWidget {
                 Expanded(
                     child: TextScroll(
                   extractChapterNumber(scan.name),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: hasRead ? Colors.grey : Colors.white),
                 ))
               ]),
             ),
@@ -528,15 +564,22 @@ class _MangaPageInformation extends StatelessWidget {
                           Icon(Icons.arrow_back_outlined, color: Colors.white)),
                 ),
                 BlocBuilder<FavoriteCubit, FavoriteState>(
-                  bloc: BlocProvider.of<FavoriteCubit>(context)..getIsFavorite(data),
+                  bloc: BlocProvider.of<FavoriteCubit>(context)
+                    ..getIsFavorite(data),
                   builder: (context, state) {
                     return Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                          onPressed: () => context.read<FavoriteCubit>().switchFavorite(data),
+                          onPressed: () => context
+                              .read<FavoriteCubit>()
+                              .switchFavorite(data),
                           icon: Icon(
-                            state.isFav == false ? Icons.favorite_border : Icons.favorite,
-                            color: state.isFav == false ?Colors.white : Colors.red,
+                            state.isFav == false
+                                ? Icons.favorite_border
+                                : Icons.favorite,
+                            color: state.isFav == false
+                                ? Colors.white
+                                : Colors.red,
                           )),
                     );
                   },
